@@ -1,0 +1,169 @@
+.medical__service__wrapper {
+
+    --first-item-color: #5ACFC9;
+    --second-item-color: #8AD879;
+    --third-item-color: #FA9F42;
+    --fourth-item-color: #F3533A;
+
+    border: 1px solid;
+
+    .package__wrapper {
+        .package__title {
+            text-align: center;            
+            padding: 10px 0;
+
+            h3 {
+                color: #fff;
+                margin: 0;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+        }
+
+        .package__detail {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+            .package__name {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 20px 0 4px 0;
+
+                .package__name__icon {
+                    width: 20px;
+                }
+                
+                h3 {
+                    margin: 0;
+                    padding-left: 8px;
+                    font-size: 22px;
+                    font-weight: bold;
+                }
+            }
+
+            .package__characteristic__desc {
+                min-height: 42px;
+            }
+            
+        }
+
+        .package__characteristic {
+            background-color: #f7f7f7;
+            padding: 8px 0 20px;
+            min-height: 420px;
+            position: relative;
+
+            .package__characteristic__list {
+                padding: 10px;
+                list-style: none;
+                .package__characteristic__item {
+                    display: flex;
+
+                    .package__characteristic__icon__wrapper {
+                        .package__characteristic__icon {
+                            width: 14px;
+                        }
+                    }
+
+                    .package__characteristic__desc {
+                        padding-left: 4px;
+                    }
+                }
+            }
+
+            .package__contact__btn__wrapper {
+                position: absolute;
+                bottom: 18px;
+                left: 11%;
+                .package__contact__btn {
+                    border: none;
+                    outline: none;
+                    border-radius: 10px;
+
+                    .package__contact__btn__link {
+                        width: 100%;
+                        display: block;
+                        text-decoration: none;
+                        color: #fff;
+                        font-size: 20px;
+                        font-weight: bold;
+                        padding: 10px 62px;
+                    }
+                }
+            }
+        }
+    }
+
+    // First color
+    .background__info_color {
+        background-color: var(--first-item-color);
+    }
+
+    .fill__info_color {
+        fill: var(--first-item-color);
+    }
+
+    .text__info_color {
+        color: var(--first-item-color);
+    }
+
+     // Second color
+    .background__success_color {
+        background-color: var(--second-item-color);
+    }
+
+    .fill__success_color {
+        fill: var(--second-item-color);
+    }
+
+    .text__success_color {
+        color: var(--second-item-color);
+    }
+
+     // Third color
+    .background__warning_color {
+        background-color: var(--third-item-color);
+    }
+
+    .fill__warning_color {
+        fill: var(--third-item-color);
+    }
+
+    .text__warning_color {
+        color: var(--third-item-color);
+    }
+
+     // Fourth color
+    .background__error_color {
+        background-color: var(--fourth-item-color);
+    }
+
+    .fill__error_color {
+        fill: var(--fourth-item-color);
+    }
+
+    .text__error_color {
+        color: var(--fourth-item-color);
+    }
+
+    
+
+}
+
+.border__color__info_color {
+    border-color: var(--first-item-color);
+}
+
+.border__color__success_color {
+    border-color: var(--second-item-color);
+}
+
+.border__color__warning_color {
+    border-color: var(--third-item-color);
+}
+
+.border__color__error_color {
+    border-color: var(--fourth-item-color);
+}

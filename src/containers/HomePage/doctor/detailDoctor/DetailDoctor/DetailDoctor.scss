@@ -1,0 +1,63 @@
+.detail-doctor-container {
+
+    margin-top: 58px;
+
+    .detail-doctor-information {
+        padding: 26px 142px 0;
+        display: flex;
+        align-items: center;
+
+        .detail-doctor-img-wrapper {
+            margin-right: 20px;
+        }
+
+
+        .detail-doctor-position {
+            font-size: 13px;
+            max-width: 600px;
+
+            .detail-doctor-intro {
+                font-weight: 600;
+            }
+
+            .detail-doctor-description {
+                margin: 0;
+            }
+        }
+
+        .detail-doctor-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    .detail-doctor-overview {
+        padding: 30px 142px 0;
+        border-top: 1px solid #ccc;
+        background-color: #f9f9f9;
+
+        ul {
+            margin: 0;
+            padding-bottom: 28px;
+        }
+    }
+
+    .detail-doctor-schedule {
+        padding: 34px 142px 16px;
+
+        width: 100%;
+        min-height: 240px;
+        display: flex;
+
+        .doctor-schedule-time {
+            flex: 1;
+        }
+
+        .doctor-schedule-related {
+            flex: 1;
+        }
+    }
+
+}

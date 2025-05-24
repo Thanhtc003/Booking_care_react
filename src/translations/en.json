@@ -1,0 +1,93 @@
+{   
+    "header-home": {
+        "specialty": "Medical specialty",
+        "search-doctor": "Find a doctor by specialty",
+        "health-center": "Health facilities",
+        "choose-room": "Choose hospital clinic",
+        "doctor": "Doctor",
+        "choose-doctor": "Choose good doctor",
+        "checkup-package": "Checkup package",
+        "general-health": "General health check",
+        "help": "Help center",
+        "language": "Language",
+        "welcome": "Welcome, "
+    },
+    "banner": {
+        "title-base": "HEALTH FACILITIES",
+        "title-care": "COMPREHENSIVE HEALTH CARE",
+        "placeholder-input-search": "Find doctor",
+        "specialist-examination": "Specialist examination",
+        "remote-examination": "Remote examination",
+        "examination-overview": "General examination",
+        "medical-test": "Medical test health",
+        "mental-health": "Mental health",
+        "dental-examination": "Dental examination",
+        "surgery-package": "Surgery package",
+        "medical-products": "Medical products",
+        "enterprise-health": "Enterprise products"
+    },
+    "login": {
+        "login": "Login",
+        "username": "Username",
+        "password": "Password",
+        "userpass-wrong": "Invalid username or password!"
+    },
+    "menu": {
+        "admin": {
+            "user": "Users",
+            "manage-admin": "Manage Admins",
+            "manage-doctor": "Manage doctors",
+            "crud-user": "CRUD users",
+            "user-redux": "CRUD Redux",
+            "doctor-schedule": "Schedule management",
+            "clinic": "Clinics",
+            "manage-clinic": "Manage clinics",
+            "specialty": "Specialties",
+            "manage-specialty": "Manage specialties",
+            "handbook": "Handbooks",
+            "manage-handbook": "Manage handbooks"
+        },
+        "doctor": {
+            "doctor-schedule": "Schedule management",
+            "manage-schedule": "Schedule management",
+            "manage-appointment": "Appointment management"
+        }
+    },
+    "manage-user": {
+        "title": "User management with Redux",
+        "add-title": "Add a new user",
+        "update-title": "Update user",
+        "email": "Email",
+        "password": "Password",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "address": "Address",
+        "phone-number": "Phone Number",
+        "image": "Avatar",
+        "gender": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "others": "Others",
+        "position": "Position",
+        "role-id": "Role",
+        "btn-save": "Save user",
+        "btn-edit": "Update user"
+    },
+    "manage-doctor": {
+        "title": "Edit doctor information",
+        "choose-doctor": "Choosing doctor",
+        "detail-doctor": "Detail information about doctor",
+        "create-doctor-btn": "Create",
+        "update-doctor-btn": "Update"
+    },
+    "home-page": {
+        "doctor-outstanding": "Outstanding doctor the last week",
+        "view-more-btn": "More information"
+},
+    "schedule-examines": {
+        "title": "doctor schedule",
+        "select-doctor": "Select doctor",
+        "choose-date-examines": "Choose examines date",
+        "create-schedule-btn": "Create schedule"
+    }
+}

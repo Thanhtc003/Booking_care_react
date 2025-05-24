@@ -1,0 +1,50 @@
+.doctor-schedule-wrapper {
+    .title {
+        text-align: center;
+    }
+
+    .schedule-desc-time {
+        margin-top: 30px;
+
+        .list-times-examines {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+
+            .time-examines-item {
+                height: 34px;
+                border: 1px solid #333;
+                border-radius: 2px;
+                margin: 10px 40px 10px 0;
+                padding: 6px;
+                background: #e69f9f;
+                min-width: 140px;
+                text-align: center;
+                cursor: pointer;
+    
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
+            .active {
+                background-color: red;
+                color: #fff;
+            }
+        }
+
+    }
+
+    .create-schedule-btn {
+        color: #fff;
+        background: #0071ba;
+        padding: 6px;
+        border: none;
+        outline: none;
+        border-radius: 6px;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+}
