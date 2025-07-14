@@ -1,14 +1,11 @@
 import './Carousel.scss'
-import { FormattedMessage } from 'react-intl';
 import Slider from "react-slick";
-import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import * as actions from '../../../../../store/actions'
 
 import { SampleNextArrow, SamplePrevArrow } from './Custom-arrow'
-import { flatMap } from 'lodash';
 function CarouselOutstandingMedical({ data, fetchTopDoctorsHomeStart, topDoctors }) {
     const settings = {
         dots: false,

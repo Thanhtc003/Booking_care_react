@@ -1,12 +1,10 @@
 import './Carousel.scss'
-import { FormattedMessage } from 'react-intl';
 import Slider from "react-slick";
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { SampleNextArrow, SamplePrevArrow } from './Custom-arrow'
-import { flatMap } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllSpecialties } from '../../../../../store/actions/specialtyActions';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -33,7 +31,7 @@ function CarouselSpecialty() {
 
     useEffect(() => {
         dispatch(fetchAllSpecialties());
-    }, []);
+    }, [dispatch]);
 
     const handleClickSpecialtyDetail = (id) => {
         history.push(`/specialty/${id}`);

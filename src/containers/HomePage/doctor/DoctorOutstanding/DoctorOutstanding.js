@@ -20,7 +20,7 @@ function DoctorOutstanding() {
         if (listDoctors.length === 0) {
             dispatch(getAllDoctors());
         }
-    }, []);
+    }, [dispatch, listDoctors.length]);
 
     return (
         <div className='doctors__container'>

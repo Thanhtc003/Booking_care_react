@@ -8,6 +8,10 @@ import ManageDoctor from '../containers/System/ManageDoctor';
 import DoctorSchedule from '../containers/System/DoctorSchedule/DoctorSchedule';
 import ManageSpecialty from '../containers/System/ManageSpecialty/ManageSpecialty';
 import DoctorAppointment from '../containers/System/DoctorAppointment/DoctorAppointment';
+import DoctorDashboard from '../containers/System/DoctorDashboard/DoctorDashboard';
+import DoctorSearch from '../containers/System/DoctorSearch/DoctorSearch';
+import DoctorNotes from '../containers/System/DoctorNotes/DoctorNotes';
+import DoctorRegistrationRequests from '../containers/System/DoctorRegistrationRequests';
 
 function System({ systemMenuPath, isLoggedIn }) {
     return (
@@ -22,6 +26,10 @@ function System({ systemMenuPath, isLoggedIn }) {
                         <Route path="/system/doctor-schedule" component={DoctorSchedule} />
                         <Route path="/system/appointment-management" component={DoctorAppointment} />
                         <Route path="/system/manage-specialty" component={ManageSpecialty} />
+                        <Route path="/system/doctor-dashboard" component={DoctorDashboard} />
+                        <Route path="/system/doctor-search" component={DoctorSearch} />
+                        <Route path="/system/doctor-notes" component={DoctorNotes} />
+                        <Route path="/system/doctor-registration-requests" component={DoctorRegistrationRequests} />
                         <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                     </Switch>
                 </div>

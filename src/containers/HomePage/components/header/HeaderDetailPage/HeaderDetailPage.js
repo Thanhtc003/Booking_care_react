@@ -1,14 +1,20 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './HeaderDetailPage.scss'
 import { useHistory } from "react-router-dom";
-import { Link, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { connect } from 'react-redux';
+import { processLogout } from '../../../../../store/actions';
 
-function HeaderDetailPage({ textDetail }) {
+function HeaderDetailPage({ textDetail, isLoggedIn, processLogoutRedux }) {
     const [isShowText, setIsShowText] = useState(false);
     const history = useHistory();
 
     const handleBackHomePage = () => {
         history.push('/');
+    }
+
+    const handleLogout = () => {
+        processLogoutRedux();
     }
 
     useEffect(() => {
@@ -48,6 +54,29 @@ function HeaderDetailPage({ textDetail }) {
                         </svg>
                         <p className='header-detail-help-text'>Hỗ trợ</p>
                     </Link>
+                    {isLoggedIn ? (
+                        <div className='header-detail-logout' onClick={handleLogout}>
+                            <svg className='header-detail-logout-icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path d="M160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96C43 32 0 75 0 128V384c0 53 43 96 96 96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h64zM504.5 273.4c4.8-4.5 7.5-10.8 7.5-17.4s-2.7-12.9-7.5-17.4l-144-136c-7-6.6-17.2-8.4-26-4.6s-14.5 12.5-14.5 22l0 88H192c-17.7 0-32 14.3-32 32l0 32c0 17.7 14.3 32 32 32H320l0 88c0 9.6 5.7 18.2 14.5 22s19 2.2 26-4.6l144-136z" />
+                            </svg>
+                            <p className='header-detail-help-text'>Đăng xuất</p>
+                        </div>
+                    ) : (
+                        <>
+                            <Link to='/login' className='header-detail-login'>
+                                <svg className='header-detail-login-icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64H348.7c2.2 20.4 3.3 41.8 3.3 64zm28.8-64H503.9c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zM291.7 414.3c-28.2-6.8-49.7-25-56.1-48.6L224 288h64l-11.7 77.7c-6.4 23.6-27.9 41.8-56.1 48.6C107.1 442.8 0 350.2 0 240c0-110.3 89.7-200 200-200s200 89.7 200 200c0 110.2-107.1 202.8-108.3 174.3zM192 120c-13.3 0-24 10.7-24 24s10.7 24 24 24 24-10.7 24-24-10.7-24-24-24zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24 24-10.7 24-24-10.7-24-24-24z" />
+                                </svg>
+                                <p className='header-detail-help-text'>Đăng nhập</p>
+                            </Link>
+                            <Link to='/register' className='header-detail-register'>
+                                <svg className='header-detail-register-icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3zM488 224h-64v-64c0-13.3-10.7-24-24-24s-24 10.7-24 24v64h-64c-13.3 0-24 10.7-24 24s10.7 24 24 24h64v64c0 13.3 10.7 24 24 24s24-10.7 24-24v-64h64c13.3 0 24-10.7 24-24s-10.7-24-24-24z" />
+                                </svg>
+                                <p className='header-detail-help-text'>Đăng ký</p>
+                            </Link>
+                        </>
+                    )}
 
                 </div>
             </div>
@@ -55,4 +84,17 @@ function HeaderDetailPage({ textDetail }) {
     );
 }
 
-export default HeaderDetailPage;
+const mapStateToProps = state => {
+    return {
+        isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        processLogoutRedux: () => dispatch(processLogout())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderDetailPage);

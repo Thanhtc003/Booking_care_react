@@ -2,8 +2,29 @@
 
 .main-container {
     .content-container {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        padding: 32px 24px;
+        margin: 32px auto;
+        max-width: 1200px;
+        min-height: 400px;
+        width: 100%;
+        border: none;
+        transition: box-shadow 0.3s, background 0.3s, border-radius 0.3s;
+        position: relative;
+        overflow: visible;
     }
 }
+
+@media (max-width: 900px) {
+    .main-container .content-container {
+        padding: 14px 2px;
+        border-radius: 6px;
+        margin: 8px 0;
+    }
+}
+
 .go__to__top__btn__wrapper {
     width: 40px;
     height: 40px;

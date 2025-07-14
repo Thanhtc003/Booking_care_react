@@ -4,7 +4,7 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import './Login.scss';
 import { useState } from 'react';
-import { handleLogin } from '../../services/userService'
+import { handleLogin } from '../../services/authService'
 
 function Login(props) {
     const [userName, setUserName] = useState('');
@@ -29,6 +29,18 @@ function Login(props) {
             }
             if (data && data.errorCode === 0) {
                 props.userLoginSuccess(data.user)
+                
+                // Redirect based on user role
+                if (data.user.roleId === 'R1') {
+                    // Admin - redirect to admin dashboard
+                    props.navigate('/system');
+                } else if (data.user.roleId === 'R2') {
+                    // Doctor - redirect to doctor dashboard
+                    props.navigate('/system/doctor-schedule');
+                } else {
+                    // Patient or other roles - redirect to homepage
+                    props.navigate('/');
+                }
             }
         } catch (error) {
             if (error.response) {
@@ -76,6 +88,9 @@ function Login(props) {
                     </div>
                     <div className='col-12 forgot-password'>
                         <a href='##'>Forgot password</a>
+                    </div>
+                    <div className='col-12 register-link'>
+                        <p>Chưa có tài khoản? <a href='/register'>Đăng ký ngay</a></p>
                     </div>
                     <div className='col-12 login-different'>
                         <p className='login-different-text'>Or sign in with:</p>

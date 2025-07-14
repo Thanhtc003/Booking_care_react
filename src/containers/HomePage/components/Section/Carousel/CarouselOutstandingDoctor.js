@@ -36,7 +36,7 @@ function CarouselOutstandingDoctor() {
 
     useEffect(() => {
         dispatch(fetchTopDoctorsHomeStart());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         setArrTopDoctors(topDoctorsRedux)

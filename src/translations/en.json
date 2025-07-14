@@ -37,6 +37,7 @@
             "user": "Users",
             "manage-admin": "Manage Admins",
             "manage-doctor": "Manage doctors",
+            "doctor-registration-requests": "Doctor Registration Requests",
             "crud-user": "CRUD users",
             "user-redux": "CRUD Redux",
             "doctor-schedule": "Schedule management",

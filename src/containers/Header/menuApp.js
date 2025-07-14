@@ -15,6 +15,10 @@ export const adminMenu = [
                 link: '/system/manage-doctor'
             },
             {
+                name: 'menu.admin.doctor-registration-requests',
+                link: '/system/doctor-registration-requests'
+            },
+            {
                 name: 'menu.admin.crud-user',
                 link: '/system/crud-user'
             },
@@ -71,7 +75,16 @@ export const adminMenu = [
 
 export const doctorMenu = [
     {
-        name: 'menu.doctor.doctor-schedule',
+        name: 'menu.doctor.dashboard',
+        menus: [
+            {
+                name: 'menu.doctor.dashboard-overview', 
+                link: '/system/doctor-dashboard',
+            },
+        ]
+    },
+    {
+        name: 'menu.doctor.appointments',
         menus: [
             {
                 name: 'menu.doctor.manage-schedule', 
@@ -80,6 +93,24 @@ export const doctorMenu = [
             {
                 name: 'menu.doctor.manage-appointment', 
                 link: '/system/appointment-management'
+            },
+        ]
+    },
+    {
+        name: 'menu.doctor.patients',
+        menus: [
+            {
+                name: 'menu.doctor.search-patients', 
+                link: '/system/doctor-search',
+            },
+        ]
+    },
+    {
+        name: 'menu.doctor.personal',
+        menus: [
+            {
+                name: 'menu.doctor.notes-diary', 
+                link: '/system/doctor-notes',
             },
         ]
     },

@@ -52,3 +52,16 @@ export const confirmAppointment = ({ doctorId, bookingId }) => {
     return axios.post(`/api/doctor/confirm-appointment`, { doctorId, bookingId });
 }
 
+export const getPatientsByDoctor = ({ doctorId, searchQuery = '', statusFilter = '', limit = 10, offset = 0 }) => {
+    const params = new URLSearchParams({
+        doctorId,
+        limit: limit.toString(),
+        offset: offset.toString()
+    });
+    
+    if (searchQuery) params.append('searchQuery', searchQuery);
+    if (statusFilter) params.append('statusFilter', statusFilter);
+    
+    return axios.get(`/api/doctor/patients?${params.toString()}`);
+}
+

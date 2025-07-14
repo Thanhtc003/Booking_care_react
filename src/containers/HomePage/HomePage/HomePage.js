@@ -1,5 +1,6 @@
 import HeaderHome from "../components/header/HeaderHome";
 import Banner from "../components/Section/Banner";
+import Search from "../components/Search/Search";
 import About from "../components/Section/About";
 import FooterHome from "../components/FooterHome";
 import InfoContact from "../components/Section/InfoContact";
@@ -16,6 +17,7 @@ function HomePage() {
         <div className="home__page__wrapper">
             <HeaderHome />
             <Banner />
+            {/* <Search /> */}
             <CarouselOutstandingDoctor />
             <CarouselSpecialty />
             <CarouselOutstandingMedical data={doctorsAndMedicalFacilities} />

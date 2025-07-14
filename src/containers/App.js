@@ -10,6 +10,7 @@ import CustomScrollbars from '../components/CustomScrollbars';
 import DetailDoctor from './HomePage/doctor/detailDoctor';
 
 import Login from './Auth/Login';
+import Register from './Auth/Register';
 import System from '../routes/System';
 import HomePage from './HomePage';
 import BookingSchedule from './HomePage/doctor/detailDoctor/BookingSchedule/BookingSchedule';
@@ -43,6 +44,7 @@ function App() {
                         <GoToTop />
                         <Switch>
                             <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                            <Route path={path.REGISTER} component={userIsNotAuthenticated(Register)} />
                             <Route path={path.HOMEPAGE} exact component={(HomePage)} />
                             <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                             <Route path={path.DOCTOR} exact component={DoctorOutstanding} />

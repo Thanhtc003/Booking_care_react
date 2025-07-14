@@ -1,246 +1,256 @@
 .booking__schedule__container {
     margin-top: 78px;
+    background: linear-gradient(135deg, rgba(120, 180, 255, 0.18) 0%, rgba(200, 220, 255, 0.45) 100%);
+    border-radius: 40px;
+    box-shadow: 0 16px 64px 0 rgba(0,87,183,0.18), 0 1.5px 8px 0 rgba(0,0,0,0.04);
+    padding: 64px 6vw 56px 6vw;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(18px) saturate(1.4);
+    border: 2.5px solid rgba(255,255,255,0.25);
+    position: relative;
+    overflow: visible;
+    transition: box-shadow 0.5s, background 0.5s, border-radius 0.5s;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 40px;
+        background: linear-gradient(120deg, rgba(255,255,255,0.18) 0%, rgba(120,180,255,0.10) 100%);
+        z-index: 0;
+        pointer-events: none;
+    }
 
     .booking__doctor__info__wrapper {
-        background-color: #f6f6f6;
-
+        background: rgba(255,255,255,0.75);
+        border-radius: 28px;
+        box-shadow: 0 4px 32px rgba(0,87,183,0.10);
+        margin-bottom: 32px;
+        position: relative;
+        z-index: 1;
         .booking__doctor__info {
-            height: 128px;
-            width: 670px;
+            width: 100%;
             display: flex;
             align-items: center;
             margin: 0 auto;
-
-
+            padding: 40px 32px;
             .booking__doctor__info--img {
-                width: 100px;
-                height: 100px;
+                width: 130px;
+                height: 130px;
                 border-radius: 50%;
+                box-shadow: 0 4px 24px rgba(0,87,183,0.13);
+                border: 4px solid #b3d0f7;
+                background: #fff;
+                margin-right: 32px;
+                transition: box-shadow 0.3s, border 0.3s;
             }
-
             .booking__doctor__info--desc {
-                margin-left: 16px;
-
                 .doctor__name {
-                    margin-bottom: 4px;
-                    font-size: 16px;
-                    font-weight: 700;
-                    color: #337ab7;
+                    margin-bottom: 8px;
+                    font-size: 1.6rem;
+                    font-weight: 800;
+                    color: #2b4eff;
+                    background: linear-gradient(90deg, #2b4eff 0%, #45c3d2 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
                 }
-
                 .doctor__title {
-                    font-weight: 400;
-                    margin-bottom: 4px;
+                    font-weight: 600;
+                    margin-bottom: 8px;
+                    color: #1a237e;
+                    font-size: 1.18rem;
                 }
-
                 .doctor__time {
-                    font-size: 13px;
+                    font-size: 1.15rem;
+                    color: #007acc;
+                    font-weight: 600;
                 }
             }
         }
     }
 
     .form__register__examine__wrapper {
-        color: #666666;
-
+        color: #1a237e;
         .form__register__examine__content {
-            width: 670px;
-            margin: 12px auto;
-
+            width: 100%;
+            max-width: 800px;
+            margin: 24px auto;
+            background: rgba(255,255,255,0.92);
+            border-radius: 24px;
+            box-shadow: 0 4px 32px rgba(0,87,183,0.10);
+            padding: 48px 40px 36px 40px;
+            position: relative;
+            z-index: 1;
             .price__suggest {
                 display: flex;
                 align-items: center;
-                padding-bottom: 10px;
-
+                padding-bottom: 18px;
                 .active {
-                    outline: 1px solid #f89008;
+                    outline: 2.5px solid #f89008;
+                    border-radius: 16px;
                 }
-
                 .price__suggest__item {
-                    margin-right: 20px;
-                    border: 1px solid #eee;
-                    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
-                    padding: 8px 28px;
-                    border-radius: 3px;
+                    margin-right: 22px;
+                    border: 2px solid #e0eafc;
+                    box-shadow: 0 2px 8px 0 rgba(0, 87, 183, .10);
+                    padding: 12px 36px;
+                    border-radius: 16px;
                     cursor: pointer;
-
-                    .price__suggest__detail {
-                        text-align: center;
-                        margin-bottom: 0;
+                    background: linear-gradient(135deg, #f8fafc 0%, #e0eafc 100%);
+                    font-weight: 700;
+                    font-size: 1.12rem;
+                    color: #2b4eff;
+                    transition: box-shadow 0.3s, background 0.3s, transform 0.3s, color 0.3s;
+                    &:hover {
+                        background: linear-gradient(135deg, #e0eafc 0%, #b3d0f7 100%);
+                        box-shadow: 0 12px 32px rgba(0,87,183,0.13);
+                        transform: translateY(-2px) scale(1.06);
+                        color: #e67e22;
                     }
                 }
             }
         }
-
-        .booking__for--list {
-            margin: 10px 0;
-
-            .booking__for--item+.booking__for--item {
-                margin-left: 16px;
-            }
-        }
-
         .form__patient__wrapper {
-
-            margin: 10px 0;
-
-            .form__patient__wrapper__input {
+            margin: 22px 0;
+            .form__patient__wrapper__input, .form__patient__select__wrapper, .form__patient__textarea_wrapper {
                 display: flex;
-
+                align-items: center;
+                background: rgba(248,250,252,0.95);
+                border-radius: 16px;
+                border: 2px solid #e0eafc;
+                padding: 18px 24px;
+                margin-bottom: 16px;
+                box-shadow: 0 1px 8px rgba(0,87,183,0.04);
+                transition: border 0.3s, box-shadow 0.3s;
                 &:focus-within {
-                    border: 1px solid #45c3d2;
+                    border: 2px solid #45c3d2;
+                    box-shadow: 0 2px 16px rgba(69,195,210,0.13);
+                }
+                .form__patient__icon {
+                    width: 22px;
+                    margin-right: 14px;
+                    fill: #45c3d2;
+                }
+                .form__patient__input, .form__patient__select, .form__patient__textarea {
+                    border: none;
+                    outline: none;
+                    width: 100%;
+                    padding: 8px 0;
+                    font-size: 1.18rem;
+                    background: transparent;
                 }
             }
-
-            .form__patient__icon {
-                width: 12px;
-                margin-right: 10px;
-                fill: #666666;
-            }
-
-            .form__patient__input {
-                border: none;
-                outline: none;
-                width: 100%;
-                padding: 2px 0;
-            }
-
             .form__patient__input--desc {
-                margin-top: 3px;
-                font-size: 13px;
+                margin-top: 4px;
+                font-size: 1.02rem;
+                color: #666;
             }
-
         }
-
         .form__patient__checkbox__wrapper {
-            margin: 10px 0;
-
+            margin: 12px 0;
             .form__patient__checkbox__item {
-                margin-right: 20px;
-
+                margin-right: 22px;
                 .form__patient__checkbox__input {
-                    margin-right: 4px;
+                    margin-right: 8px;
                 }
             }
         }
-
-        .form__patient__select__wrapper {
-            display: flex;
-
-            &:focus-within {
-                border: 1px solid #45c3d2;
-            }
-
-            .form__patient__select {
-                width: 100%;
-                padding: 3px 0;
-                border: none;
-                outline: none;
-
-            }
-        }
-
-        .form__patient__textarea_wrapper {
-            display: flex;
-
-            &:focus-within {
-                border: 1px solid #45c3d2;
-            }
-
-            .form__patient__textarea {
-                width: 100%;
-                border: none;
-                outline: none;
-            }
-        }
-
-        .form__patient__method__payment {
-            .form__patient__method__payment__title {
-                font-size: 12px;
-                font-weight: bold;
-                color: #337ab7;
-                margin-bottom: -4px;
-            }
-        }
-
         .form__patient__price__wrapper {
-            background-color: #f6f6f6;
-            border-radius: 4px;
-            padding: 16px 10px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0eafc 100%);
+            border-radius: 18px;
+            padding: 28px 22px;
             color: #000;
-
+            box-shadow: 0 2px 12px rgba(0,87,183,0.07);
             .form__patient__price__item {
                 display: flex;
                 justify-content: space-between;
-
+                font-size: 1.18rem;
+                font-weight: 700;
                 .form__patient__price__total {
-                    color: red;
+                    color: #e67e22;
+                    font-size: 1.22rem;
                 }
-
                 p {
                     margin: 0;
                 }
             }
         }
-
-        .form__patient__sub__note {
-            text-align: center;
-            p {
-                font-size: 13px;
-                margin: 8px 0;
-
-            }
-        }
-
         .form__patient__note {
-            // margin: 8px 0;
-            background-color: #D4EFFC;
-            border-radius: 4px;
-            padding: 16px 10px;
-            color: #000;
-
-            h6 {
-                font-weight: bold;
-            }
+            background: linear-gradient(135deg, #e0f7fa 0%, #f8fafc 100%);
+            border-radius: 16px;
+            padding: 22px 18px;
+            color: #007acc;
+            font-size: 1.15rem;
+            margin-top: 16px;
+            box-shadow: 0 1px 8px rgba(0,87,183,0.04);
+            font-weight: 600;
+            letter-spacing: 0.1px;
         }
         .form__patient__btn__wrapper {
-            margin-top: 18px;
+            margin-top: 24px;
+            display: flex;
+            justify-content: center;
             .form__patient__btn {
-                width: 100%;
-                background-color: #ffc419;
+                background: linear-gradient(90deg, #2b4eff 0%, #45c3d2 100%);
                 color: #fff;
+                font-weight: 700;
+                font-size: 1.22rem;
                 border: none;
-                outline: none;
-                padding: 8px 0;
-                border-radius: 4px; 
-
+                border-radius: 24px;
+                padding: 0 60px;
+                box-shadow: 0 4px 24px rgba(43,78,255,0.13);
+                cursor: pointer;
+                transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+                letter-spacing: 0.5px;
                 &:hover {
-                    opacity: 0.9;
+                    background: linear-gradient(90deg, #45c3d2 0%, #2b4eff 100%);
+                    box-shadow: 0 8px 32px rgba(43,78,255,0.18);
+                    transform: translateY(-2px) scale(1.04);
                 }
-            }
-        }
-        .form__patient__confirm {
-            font-size: 13px;
-
-            a {
-                margin-left: 3px;
-                text-decoration: none;
-                color: #45c3d2;
-            }
-        }
-
-        .form__patient__message__wrapper {
-            text-align: center;
-            margin: 8px 0;
-            .form__patient__error__message {
-                font-size: 13px;
-                color: red;
-            }
-            .form__patient__success__message {
-                font-size: 13px;
-                color: green;
             }
         }
     }
 
+    .form__patient__sub__note {
+        text-align: center;
+        p {
+            font-size: 13px;
+            margin: 8px 0;
+        }
+    }
+
+    .form__patient__confirm {
+        font-size: 13px;
+
+        a {
+            margin-left: 3px;
+            text-decoration: none;
+            color: #45c3d2;
+        }
+    }
+
+    .form__patient__message__wrapper {
+        text-align: center;
+        margin: 8px 0;
+        .form__patient__error__message {
+            font-size: 13px;
+            color: red;
+        }
+        .form__patient__success__message {
+            font-size: 13px;
+            color: green;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .booking__schedule__container {
+        padding: 18px 2vw 18px 2vw;
+        .form__register__examine__content {
+            padding: 18px 6px 12px 6px;
+        }
+    }
 }

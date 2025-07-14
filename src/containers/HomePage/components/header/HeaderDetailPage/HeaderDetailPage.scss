@@ -1,84 +1,489 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --primary-color: #0057b7;
+  --secondary-color: #ffd700;
+  --accent-color: #45c3d2;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6c757d;
+  --text-muted: #adb5bd;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-accent: #e3f2fd;
+  --border-color: #dee2e6;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
+  --border-radius-lg: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .header-detail-page-container {
-    width: 100%;
-    height: 58px;
-    background-color: #45c3d2;
-    position: fixed;
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(135deg, var(--accent-color) 0%, #4dd0e1 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  font-family: 'Inter', sans-serif;
+  box-shadow: var(--shadow-lg);
+  animation: slideIn 0.6s ease-out;
+
+  &::before {
+    content: '';
+    position: absolute;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .header-detail-page-content {
+    height: 100%;
+    max-width: 1280px;
+    padding: 0 32px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+    .header-detail-back {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: var(--border-radius-sm);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateX(-3px);
+        box-shadow: var(--shadow-md);
+
+        &::before {
+          left: 100%;
+        }
+
+        .header-detail-back-icon {
+          transform: translateX(-2px);
+        }
+      }
+
+      .header-detail-back-icon {
+        width: 24px;
+        height: 24px;
+        fill: white;
+        margin-right: 12px;
+        transition: var(--transition);
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+      }
+
+      .header-detail-page-context {
+        margin: 0;
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.8s ease-out;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 300px;
+
+        @media (max-width: 768px) {
+          font-size: 14px;
+          max-width: 200px;
+        }
+
+        @media (max-width: 480px) {
+          display: none;
+        }
+      }
+    }
+
+    .header-detail-nav-help {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      .header-detail-help, 
+      .header-detail-appointment,
+      .header-detail-login,
+      .header-detail-logout,
+      .header-detail-register {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: var(--border-radius-sm);
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        min-width: 80px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transition: left 0.5s;
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.25);
+          transform: translateY(-3px);
+          box-shadow: var(--shadow-md);
+
+          &::before {
+            left: 100%;
+          }
+
+          .header-detail-help-icon,
+          .header-detail-appointment-icon,
+          .header-detail-login-icon,
+          .header-detail-logout-icon,
+          .header-detail-register-icon {
+            transform: scale(1.1);
+          }
+
+          .header-detail-help-text {
+            color: white;
+            transform: translateY(-1px);
+          }
+        }
+
+        .header-detail-help-icon,
+        .header-detail-appointment-icon,
+        .header-detail-login-icon,
+        .header-detail-logout-icon,
+        .header-detail-register-icon {
+          width: 20px;
+          height: 20px;
+          fill: white;
+          margin-bottom: 4px;
+          transition: var(--transition);
+          filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        .header-detail-help-text {
+          margin: 0;
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.9);
+          font-weight: 500;
+          text-align: center;
+          transition: var(--transition);
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+          line-height: 1.2;
+        }
+      }
+
+      .header-detail-appointment {
+        background: rgba(40, 167, 69, 0.2);
+        border-color: rgba(40, 167, 69, 0.3);
+
+        &:hover {
+          background: rgba(40, 167, 69, 0.3);
+        }
+
+        .header-detail-appointment-icon {
+          width: 22px;
+          height: 22px;
+        }
+      }
+
+      .header-detail-login {
+        background: rgba(0, 87, 183, 0.2);
+        border-color: rgba(0, 87, 183, 0.3);
+
+        &:hover {
+          background: rgba(0, 87, 183, 0.3);
+        }
+      }
+
+      .header-detail-register {
+        background: rgba(40, 167, 69, 0.2);
+        border-color: rgba(40, 167, 69, 0.3);
+
+        &:hover {
+          background: rgba(40, 167, 69, 0.3);
+        }
+      }
+
+      .header-detail-logout {
+        background: rgba(220, 53, 69, 0.2);
+        border-color: rgba(220, 53, 69, 0.3);
+
+        &:hover {
+          background: rgba(220, 53, 69, 0.3);
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 1200px) {
+  .header-detail-page-container {
+    .header-detail-page-content {
+      max-width: 960px;
+      padding: 0 24px;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .header-detail-page-container {
+    height: 65px;
 
     .header-detail-page-content {
-        height: 100%;
-        padding: 0px 142px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+      max-width: 720px;
+      padding: 0 20px;
 
-        .header-detail-back {
-            padding: 4px;
-            fill: #fff;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
+      .header-detail-back {
+        padding: 6px 10px;
 
-
-            .header-detail-back-icon {
-
-                width: 28px;
-                margin-right: 16px;
-                padding: 4px;
-
-                &:hover {
-                    opacity: 0.8;
-                }
-            }
-
-            .header-detail-page-context {
-                margin: 0;
-                color: #fff;
-                font-weight: 600;
-                font-size: 15px;
-
-            }
-
-
+        .header-detail-back-icon {
+          width: 22px;
+          height: 22px;
+          margin-right: 10px;
         }
 
-        .header-detail-nav-help {
-            display: flex;
-            align-items: center;
-
-            .header-detail-help, 
-            .header-detail-appointment {
-                cursor: pointer;
-                text-align: center;
-                text-decoration: none;
-
-                &:hover {
-                    opacity: 0.8;
-                }
-
-                .header-detail-help-icon {
-                    width: 14px;
-                    fill: #fff;
-                }
-                .header-detail-help-text {
-                    margin: 0;
-                    font-size: 11px;
-                    color: #fff;
-                }
-
-            }
-
-
-            .header-detail-appointment {
-                margin-right: 16px;
-                
-                .header-detail-appointment-icon {
-                    width: 20px;
-                    fill: #fff;
-                }
-            }
-
+        .header-detail-page-context {
+          font-size: 15px;
+          max-width: 250px;
         }
+      }
+
+      .header-detail-nav-help {
+        gap: 12px;
+
+        .header-detail-help, 
+        .header-detail-appointment,
+        .header-detail-login,
+        .header-detail-logout,
+        .header-detail-register {
+          padding: 6px 12px;
+          min-width: 70px;
+
+          .header-detail-help-icon,
+          .header-detail-appointment-icon,
+          .header-detail-login-icon,
+          .header-detail-logout-icon,
+          .header-detail-register-icon {
+            width: 18px;
+            height: 18px;
+          }
+
+          .header-detail-help-text {
+            font-size: 11px;
+          }
+        }
+
+        .header-detail-appointment {
+          .header-detail-appointment-icon {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .header-detail-page-container {
+    height: 60px;
+
+    .header-detail-page-content {
+      padding: 0 16px;
+
+      .header-detail-back {
+        padding: 5px 8px;
+
+        .header-detail-back-icon {
+          width: 20px;
+          height: 20px;
+          margin-right: 8px;
+        }
+
+        .header-detail-page-context {
+          font-size: 14px;
+          max-width: 200px;
+        }
+      }
+
+      .header-detail-nav-help {
+        gap: 8px;
+
+        .header-detail-help, 
+        .header-detail-appointment,
+        .header-detail-login,
+        .header-detail-logout,
+        .header-detail-register {
+          padding: 5px 8px;
+          min-width: 60px;
+
+          .header-detail-help-icon,
+          .header-detail-appointment-icon,
+          .header-detail-login-icon,
+          .header-detail-logout-icon,
+          .header-detail-register-icon {
+            width: 16px;
+            height: 16px;
+            margin-bottom: 2px;
+          }
+
+          .header-detail-help-text {
+            font-size: 10px;
+          }
+        }
+
+        .header-detail-appointment {
+          .header-detail-appointment-icon {
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header-detail-page-container {
+    height: 55px;
+
+    .header-detail-page-content {
+      padding: 0 12px;
+
+      .header-detail-back {
+        padding: 4px 6px;
+
+        .header-detail-back-icon {
+          width: 18px;
+          height: 18px;
+          margin-right: 6px;
+        }
+      }
+
+      .header-detail-nav-help {
+        gap: 6px;
+
+        .header-detail-help, 
+        .header-detail-appointment,
+        .header-detail-login,
+        .header-detail-logout,
+        .header-detail-register {
+          padding: 4px 6px;
+          min-width: 50px;
+
+          .header-detail-help-icon,
+          .header-detail-appointment-icon,
+          .header-detail-login-icon,
+          .header-detail-logout-icon,
+          .header-detail-register-icon {
+            width: 14px;
+            height: 14px;
+            margin-bottom: 1px;
+          }
+
+          .header-detail-help-text {
+            font-size: 9px;
+          }
+        }
+
+        .header-detail-appointment {
+          .header-detail-appointment-icon {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animation classes for dynamic content
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.6s ease-out;
 }

@@ -37,36 +37,87 @@
     }
 
     .schedule__price {
-        padding-top: 24px;
-        border-top: 1px solid rgba(238, 238, 238, 1.00);
+        padding-top: 28px;
+        border-top: 1.5px solid #e0eafc;
+        background: transparent;
+
+        .schedule__title {
+            color: #1a237e;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.2px;
+        }
 
         .schedule__price__desc {
-            margin-left: 4px;
+            margin-left: 8px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #007acc;
         }
 
         .price__detail__wrapper {
+            margin-top: 18px;
 
             .price__detail {
-                margin-bottom: 14px;
+                margin-bottom: 18px;
             }
 
+            .price__detail__block {
+                display: flex;
+                align-items: center;
+                border: none;
+                border-radius: 18px;
+                background: linear-gradient(135deg, #f8fafc 0%, #e0eafc 100%);
+                box-shadow: 0 2px 16px rgba(0,87,183,0.07);
+                padding: 18px 28px;
+                margin-bottom: 16px;
+                transition: box-shadow 0.3s, transform 0.3s, background 0.3s;
 
+                &:hover {
+                    box-shadow: 0 8px 32px rgba(0,87,183,0.13);
+                    background: linear-gradient(135deg, #e0eafc 0%, #b3d0f7 100%);
+                    transform: translateY(-2px) scale(1.03);
+                }
 
-            .price__detail__payment {
-                padding: 4px;
-                border: 1px solid rgba(221, 221, 221, 1.00);
-                background-color: rgba(238, 238, 238, 1.00);
-                font-size: 13px;
-            }
+                .price__detail__desc {
+                    flex: 1;
 
-            .price__detail__block__wrapper {
+                    .price__detail__number__title {
+                        margin-bottom: 6px;
+                        font-size: 1.08rem;
+                        font-weight: 600;
+                        color: #0d1a4a;
+                    }
 
+                    .price__detail__desc__para {
+                        font-size: 1rem;
+                        color: #1a237e;
+                    }
+                }
 
-                &:last-child {
-                    border-bottom: 1px solid rgba(221, 221, 221, 1.00);
+                .price__detail__number__desc {
+                    margin-left: 18px;
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    color: #e67e22;
+                    background: #fff6e3;
+                    border-radius: 12px;
+                    padding: 8px 18px;
+                    box-shadow: 0 1px 6px rgba(230,126,34,0.08);
                 }
             }
 
+            .price__detail__payment {
+                margin-top: 10px;
+                border-radius: 12px;
+                background: #f8fafc;
+                border: 1.5px solid #e0eafc;
+                font-size: 1rem;
+                padding: 10px 18px;
+                color: #007acc;
+                box-shadow: 0 1px 6px rgba(0,87,183,0.04);
+            }
         }
     }
 
@@ -97,36 +148,6 @@
     }
 
 
-}
-
-.price__detail__block {
-    display: flex;
-    align-items: center;
-    border-top: 1px solid rgba(221, 221, 221, 1.00);
-    border-right: 1px solid rgba(221, 221, 221, 1.00);
-    border-left: 1px solid rgba(221, 221, 221, 1.00);
-    padding: 4px;
-    background-color: rgba(248, 248, 248, 1.00);
-
-    .price__detail__desc {
-        flex: 1;
-
-        .price__detail__number__title {
-            margin-bottom: 4px;
-            font-size: 13px;
-            font-weight: 500;
-            display: block;
-        }
-
-        .price__detail__desc__para {
-            font-size: 12px;
-
-        }
-    }
-
-    .price__detail__number__desc {
-        margin-left: 10px;
-    }
 }
 
 .cursor-pointer {

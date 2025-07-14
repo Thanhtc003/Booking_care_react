@@ -1,10 +1,267 @@
 .doctor__app__wrapper {
+    max-width: 1200px;
+    margin: 40px auto 0 auto;
+    padding: 0 20px;
+
     .doctor__app__title {
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 20px;
-        margin-top: 15px;
-        color: #0071ba;
         text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #0071ba 0%, #43cea2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 40px;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .date-selector {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 32px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+
+        label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        input[type="date"] {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(0, 113, 186, 0.2);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+            &:focus {
+                outline: none;
+                border-color: #0071ba;
+                box-shadow: 0 4px 16px rgba(0, 113, 186, 0.2);
+                transform: translateY(-2px);
+            }
+        }
+    }
+
+    .appointments-container {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+
+        .table {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+            thead {
+                background: linear-gradient(135deg, #0071ba 0%, #43cea2 100%);
+                
+                th {
+                    color: #fff;
+                    font-weight: 600;
+                    padding: 16px 12px;
+                    border: none;
+                    text-align: center;
+                    font-size: 1rem;
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                }
+            }
+
+            tbody {
+                tr {
+                    transition: all 0.3s ease;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+                    &:hover {
+                        background: rgba(0, 113, 186, 0.05);
+                        transform: scale(1.01);
+                        box-shadow: 0 4px 12px rgba(0, 113, 186, 0.1);
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    th, td {
+                        padding: 16px 12px;
+                        text-align: center;
+                        vertical-align: middle;
+                        border: none;
+                        font-weight: 500;
+                    }
+
+                    th {
+                        background: rgba(0, 113, 186, 0.1);
+                        color: #0071ba;
+                        font-weight: 600;
+                    }
+
+                    .patient-name {
+                        font-weight: 600;
+                        color: #333;
+                    }
+
+                    .patient-gender {
+                        padding: 4px 12px;
+                        border-radius: 20px;
+                        font-size: 0.9rem;
+                        font-weight: 500;
+                        
+                        &.male {
+                            background: rgba(0, 113, 186, 0.1);
+                            color: #0071ba;
+                        }
+                        
+                        &.female {
+                            background: rgba(255, 105, 180, 0.1);
+                            color: #ff69b4;
+                        }
+                    }
+
+                    .patient-address {
+                        max-width: 200px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        color: #666;
+                    }
+
+                    .action-buttons {
+                        display: flex;
+                        gap: 8px;
+                        justify-content: center;
+                        flex-wrap: wrap;
+
+                        .btn {
+                            padding: 8px 16px;
+                            border-radius: 20px;
+                            font-weight: 600;
+                            font-size: 0.9rem;
+                            border: none;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            text-decoration: none;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 6px;
+
+                            &.btn-success {
+                                background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                                color: #fff;
+                                box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+
+                                &:hover:not(:disabled) {
+                                    transform: translateY(-2px);
+                                    box-shadow: 0 4px 16px rgba(40, 167, 69, 0.4);
+                                }
+
+                                &:disabled {
+                                    background: #6c757d;
+                                    cursor: not-allowed;
+                                    opacity: 0.6;
+                                }
+                            }
+
+                            &.btn-info {
+                                background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+                                color: #fff;
+                                box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
+
+                                &:hover {
+                                    transform: translateY(-2px);
+                                    box-shadow: 0 4px 16px rgba(23, 162, 184, 0.4);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .no-appointments {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            margin: 20px 0;
+
+            &::before {
+                content: "📅";
+                font-size: 3rem;
+                display: block;
+                margin-bottom: 16px;
+            }
+        }
+    }
+
+    // Responsive design
+    @media (max-width: 768px) {
+        padding: 0 10px;
+
+        .doctor__app__title {
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+        }
+
+        .date-selector {
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .appointments-container {
+            padding: 16px;
+
+            .table {
+                font-size: 0.9rem;
+
+                thead th {
+                    padding: 12px 8px;
+                    font-size: 0.9rem;
+                }
+
+                tbody {
+                    tr {
+                        th, td {
+                            padding: 12px 8px;
+                        }
+
+                        .action-buttons {
+                            flex-direction: column;
+                            gap: 4px;
+
+                            .btn {
+                                padding: 6px 12px;
+                                font-size: 0.8rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 576px) {
+        .doctor__app__title {
+            font-size: 1.5rem;
+        }
+
+        .table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
     }
 }

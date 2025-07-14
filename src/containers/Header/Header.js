@@ -21,7 +21,7 @@ function Header({ processLogout, changeLanguagesAppRedux, language, userInfo }) 
             setMenu(doctorMenu);
         } else {
             setMenu([]);
-            history.push('/home');
+            history.push('/');
         }
     }, [userInfo]);
 
@@ -45,6 +45,9 @@ function Header({ processLogout, changeLanguagesAppRedux, language, userInfo }) 
                 <div className='languages'>
                     <span className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'} onClick={() => handleChangeLanguage(LANGUAGES.VI)}>VN</span>
                     <span className={language === LANGUAGES.EN ? 'language-en active' : 'language-en'} onClick={() => handleChangeLanguage(LANGUAGES.EN)}>EN</span>
+                </div>
+                <div className="btn btn-profile" title='profile'>
+                    <i className="fas fa-user"></i>
                 </div>
                 <div className="btn btn-logout" title='logout' onClick={processLogout}>
                     <i className="fas fa-sign-out-alt"></i>
