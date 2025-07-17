@@ -13,6 +13,7 @@ import DoctorSearch from '../containers/System/DoctorSearch/DoctorSearch';
 import DoctorNotes from '../containers/System/DoctorNotes/DoctorNotes';
 import DoctorRegistrationRequests from '../containers/System/DoctorRegistrationRequests';
 
+
 function System({ systemMenuPath, isLoggedIn }) {
     return (
         <React.Fragment>

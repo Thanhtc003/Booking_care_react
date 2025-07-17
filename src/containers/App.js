@@ -24,6 +24,7 @@ import VerifySchedule from './HomePage/doctor/detailDoctor/schedule/VerifySchedu
 import './App.scss';
 import AppDownload from './HomePage/site/AppDownload/AppDownload';
 import HelpPage from './HomePage/patient/HelpPage/HelpPage';
+import ProfilePatient from './HomePage/patient/ProfilePatient/ProfilePatient';
 import GoToTop from './HomePage/components/Section/GoToTop/GoToTop';
 import Appointment from './HomePage/patient/Appointment/Appointment';
 import HealthEnterPrise from './HomePage/enterprise/HealthEnterPrise/HealthEnterPrise';
@@ -55,6 +56,7 @@ function App() {
                             <Route path={path.DETAIL_SPECIALTY} component={SpecialtyDetail} />
                             <Route path={path.COOPERATE} component={Cooperate} />
                             <Route path={path.APP} component={AppDownload} />
+                            <Route path={path.PROFILE} component={ProfilePatient} />
                             <Route path={path.HELP} component={HelpPage} />
                             <Route path={path.APPOINTMENT} component={Appointment} />
                             <Route path={path.HEALTH_ENTERPRISE} component={HealthEnterPrise} />
