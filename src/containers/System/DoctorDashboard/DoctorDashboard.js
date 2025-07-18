@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import DoctorDashboardService from '../../../services/doctorDashboardService';
 import './DoctorDashboard.scss';
 
 function DoctorDashboard() {
@@ -16,63 +17,78 @@ function DoctorDashboard() {
     const [recentAppointments, setRecentAppointments] = useState([]);
     const [topSpecialties, setTopSpecialties] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     
     const user = useSelector(state => state.user.userInfo);
 
     useEffect(() => {
-        // Simulate fetching dashboard data
         const fetchDashboardData = async () => {
-            setLoading(true);
-            
-            // Mock data - in real app, these would be API calls
-            setTimeout(() => {
-                setStats({
-                    todayAppointments: 8,
-                    weekAppointments: 45,
-                    monthAppointments: 180,
-                    totalPatients: 156,
-                    averageRating: 4.7,
-                    monthlyIncome: 25000000
-                });
-                
-                setRecentAppointments([
-                    { id: 1, patientName: 'Nguyễn Văn A', time: '09:00', status: 'confirmed', specialty: 'Tim mạch' },
-                    { id: 2, patientName: 'Trần Thị B', time: '10:30', status: 'pending', specialty: 'Da liễu' },
-                    { id: 3, patientName: 'Lê Văn C', time: '14:00', status: 'completed', specialty: 'Nội khoa' },
-                    { id: 4, patientName: 'Phạm Thị D', time: '15:30', status: 'confirmed', specialty: 'Nhi khoa' }
-                ]);
-                
-                setTopSpecialties([
-                    { name: 'Tim mạch', count: 45, percentage: 25 },
-                    { name: 'Da liễu', count: 38, percentage: 21 },
-                    { name: 'Nội khoa', count: 32, percentage: 18 },
-                    { name: 'Nhi khoa', count: 28, percentage: 16 },
-                    { name: 'Thần kinh', count: 22, percentage: 12 }
-                ]);
-                
+            if (!user?.id) {
                 setLoading(false);
-            }, 1000);
+                return;
+            }
+
+            setLoading(true);
+            setError(null);
+            
+            try {
+                console.log('🔍 Fetching dashboard data for doctor:', user.id);
+                
+                const [statsRes, appointmentsRes, specialtiesRes] = await Promise.all([
+                    DoctorDashboardService.getDoctorStats(user.id),
+                    DoctorDashboardService.getRecentAppointments(user.id, 10),
+                    DoctorDashboardService.getTopSpecialties(user.id)
+                ]);
+
+                console.log('📊 Stats response:', statsRes);
+                console.log('📅 Appointments response:', appointmentsRes);
+                console.log('🏥 Specialties response:', specialtiesRes);
+
+                if (statsRes && statsRes.code === 0) {
+                    setStats(statsRes.data);
+                } else {
+                    console.error('❌ Stats error:', statsRes);
+                    setError('Không thể tải thống kê');
+                }
+
+                if (appointmentsRes && appointmentsRes.code === 0) {
+                    setRecentAppointments(appointmentsRes.data);
+                } else {
+                    console.error('❌ Appointments error:', appointmentsRes);
+                }
+
+                if (specialtiesRes && specialtiesRes.code === 0) {
+                    setTopSpecialties(specialtiesRes.data);
+                } else {
+                    console.error('❌ Specialties error:', specialtiesRes);
+                }
+            } catch (error) {
+                console.error('❌ Error fetching dashboard data:', error);
+                setError('Có lỗi xảy ra khi tải dữ liệu');
+            } finally {
+                setLoading(false);
+            }
         };
         
         fetchDashboardData();
-    }, []);
+    }, [user?.id]);
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'confirmed': return '#28a745';
-            case 'pending': return '#ffc107';
-            case 'completed': return '#17a2b8';
-            case 'cancelled': return '#dc3545';
+            case 'S1': return '#28a745'; // Đã xác nhận
+            case 'S2': return '#ffc107'; // Chờ xác nhận
+            case 'S3': return '#17a2b8'; // Đã hoàn thành
+            case 'S4': return '#dc3545'; // Đã hủy
             default: return '#6c757d';
         }
     };
 
     const getStatusText = (status) => {
         switch (status) {
-            case 'confirmed': return 'Đã xác nhận';
-            case 'pending': return 'Chờ xác nhận';
-            case 'completed': return 'Đã hoàn thành';
-            case 'cancelled': return 'Đã hủy';
+            case 'S1': return 'Đã xác nhận';
+            case 'S2': return 'Chờ xác nhận';
+            case 'S3': return 'Đã hoàn thành';
+            case 'S4': return 'Đã hủy';
             default: return 'Không xác định';
         }
     };
@@ -90,6 +106,27 @@ function DoctorDashboard() {
                 <div className="loading-container">
                     <div className="loading-spinner"></div>
                     <p>Đang tải dữ liệu...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="doctor-dashboard">
+                <div className="error-container">
+                    <div className="error-icon">
+                        <i className="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Lỗi tải dữ liệu</h3>
+                    <p>{error}</p>
+                    <button 
+                        className="retry-btn"
+                        onClick={() => window.location.reload()}
+                    >
+                        <i className="fas fa-redo"></i>
+                        Thử lại
+                    </button>
                 </div>
             </div>
         );
@@ -209,29 +246,42 @@ function DoctorDashboard() {
                         Lịch hẹn gần đây
                     </h3>
                     <div className="appointments-list">
-                        {recentAppointments.map((appointment) => (
-                            <div key={appointment.id} className="appointment-item">
-                                <div className="appointment-info">
-                                    <h4 className="patient-name">{appointment.patientName}</h4>
-                                    <p className="appointment-time">
-                                        <i className="fas fa-clock"></i>
-                                        {appointment.time}
-                                    </p>
-                                    <p className="appointment-specialty">
-                                        <i className="fas fa-stethoscope"></i>
-                                        {appointment.specialty}
-                                    </p>
+                        {recentAppointments.length > 0 ? (
+                            recentAppointments.map((appointment) => (
+                                <div key={appointment.id} className="appointment-item">
+                                    <div className="appointment-info">
+                                        <h4 className="patient-name">{appointment.patientName}</h4>
+                                        <p className="appointment-time">
+                                            <i className="fas fa-clock"></i>
+                                            {appointment.time}
+                                        </p>
+                                        <p className="appointment-date">
+                                            <i className="fas fa-calendar"></i>
+                                            {new Date(appointment.date).toLocaleDateString('vi-VN')}
+                                        </p>
+                                        {appointment.reason && (
+                                            <p className="appointment-reason">
+                                                <i className="fas fa-comment"></i>
+                                                {appointment.reason}
+                                            </p>
+                                        )}
+                                    </div>
+                                    <div className="appointment-status">
+                                        <span 
+                                            className="status-badge"
+                                            style={{ backgroundColor: getStatusColor(appointment.status) }}
+                                        >
+                                            {appointment.statusText || getStatusText(appointment.status)}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div className="appointment-status">
-                                    <span 
-                                        className="status-badge"
-                                        style={{ backgroundColor: getStatusColor(appointment.status) }}
-                                    >
-                                        {getStatusText(appointment.status)}
-                                    </span>
-                                </div>
+                            ))
+                        ) : (
+                            <div className="no-data">
+                                <i className="fas fa-calendar-times"></i>
+                                <p>Chưa có lịch hẹn nào</p>
                             </div>
-                        ))}
+                        )}
                     </div>
                 </div>
             </div>

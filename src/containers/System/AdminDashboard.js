@@ -49,6 +49,13 @@ function AdminDashboard({ userInfo }) {
             icon: 'fas fa-database',
             path: '/system/user-redux',
             color: '#607D8B'
+        },
+        {
+            title: 'menu.admin.revenue-dashboard',
+            description: 'Quản lý doanh thu và báo cáo tài chính',
+            icon: 'fas fa-chart-line',
+            path: '/system/revenue-dashboard',
+            color: '#00BCD4'
         }
     ];
 
@@ -103,6 +110,15 @@ function AdminDashboard({ userInfo }) {
                     <div className="stat-content">
                         <h3>Specialties</h3>
                         <p>15</p>
+                    </div>
+                </div>
+                <div className="stat-card">
+                    <div className="stat-icon">
+                        <i className="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div className="stat-content">
+                        <h3>Monthly Revenue</h3>
+                        <p>₫25,000,000</p>
                     </div>
                 </div>
             </div>

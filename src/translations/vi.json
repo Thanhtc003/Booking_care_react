@@ -41,6 +41,7 @@
             "crud-user": "CRUD người dùng",
             "user-redux": "CRUD Redux",
             "doctor-schedule": "Quản lí lịch khám",
+            "revenue-dashboard": "Quản lý doanh thu",
             "clinic": "Phòng khám",
             "manage-clinic": "Quản lí phòng khám",
             "specialty": "Chuyên khoa",

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import HeaderHome from '../../../components/header/HeaderHome';
 import './BookingSchedule.scss';
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useLocation, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import * as actions from '../../../../../store/actions';
 import queryString from 'query-string';
 import localization from 'moment/locale/vi';
@@ -14,13 +14,13 @@ import { bookingSchedule } from '../../../../../services/patientService';
 // import { toast } from 'react-toastify';
 
 function BookingSchedule() {
+    const history = useHistory();
     const [dateExamine, setDateExamine] = useState('');
     const [priceSuggestActive, setPriceSuggestActive] = useState('1');
     const [objectExamine, setObjectExamine] = useState('1');
     const [namePatient, setNamePatient] = useState('');
     const [genderPatient, setGenderPatient] = useState('');
     const [phoneNumberPatient, setPhoneNumberPatient] = useState('');
-    const [dobPatient, setDobPatient] = useState('');
     const [emailPatient, setEmailPatient] = useState('');
     // const [provincePatient, setProvincePatient] = useState('');
     // const [districtPatient, setDistrictPatient] = useState('');
@@ -30,7 +30,6 @@ function BookingSchedule() {
     const [listProvince, setListProvince] = useState([]);
     const [listDistrict, setListDistrict] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
     const [priceExamine, setPriceExamine] = useState('');
     const [doctorInfo, setDoctorInfo] = useState({});
 
@@ -131,10 +130,6 @@ function BookingSchedule() {
             setErrorMessage('Số điện thoại không hợp lệ!');
             return false;
         }
-        if (checkIsEmpty(dobPatient)) {
-            setErrorMessage('Vui lòng nhập ngày/tháng/năm sinh!');
-            return false;
-        }
         if (checkIsEmpty(addressPatient)) {
             setErrorMessage('Vui lòng nhập đia chỉ!');
             return false;
@@ -149,8 +144,8 @@ function BookingSchedule() {
 
     const handleClickConfirmAppointment = async () => {
         if (validatePatientInput()) {
-            const dateSpread = dateExamine.split('-')[1]?.trim().split('/');
-            const dateFormat = `${dateSpread[2]}-${dateSpread[1]}-${dateSpread[0]}`;
+            // Sử dụng date từ URL params thay vì parse dateExamine
+            const dateFormat = moment(new Date(date)).format('YYYY-MM-DD');
 
             const res = await bookingSchedule({
                 doctorId,
@@ -158,7 +153,6 @@ function BookingSchedule() {
                 patientGender: genderPatient,
                 patientEmail: emailPatient,
                 patientPhone: phoneNumberPatient,
-                patientDob: dobPatient,
                 patientAddress: addressPatient,
                 patientReason: reasonPatient,
                 objectExamine: priceSuggestActive,
@@ -170,11 +164,17 @@ function BookingSchedule() {
                 timeSpecific: time
             });
             if (res && res.code === 0) {
-                setErrorMessage('');
-                setSuccessMessage('Đăng kí thông tin thành công, vui lòng xác nhận thông tin tại email để hoàn tất đăng kí.');
+                // Chuyển hướng đến trang xác nhận với thông tin đặt lịch
+                history.push('/booking-confirmation', {
+                    state: {
+                        doctorName: language === 'vi' ? nameVi : nameEn,
+                        appointmentDate: dateExamine,
+                        appointmentTime: time,
+                        patientEmail: emailPatient
+                    }
+                });
             } else if (res && res.code === 1) {
                 setErrorMessage('Lịch hẹn khám bệnh đã được đăng kí!');
-                setSuccessMessage('');
             }
         }
     }
@@ -194,6 +194,28 @@ function BookingSchedule() {
             </div>
             <div className='form__register__examine__wrapper'>
                 <form className='form__register__examine__content'>
+                    {/* Thông tin lịch hẹn đã chọn */}
+                    <div className='selected-appointment-info'>
+                        <h4 className='appointment-info-title'>
+                            <i className="fas fa-calendar-check"></i>
+                            Thông tin lịch hẹn đã chọn
+                        </h4>
+                        <div className='appointment-details'>
+                            <div className='appointment-item'>
+                                <span className='label'>Bác sĩ:</span>
+                                <span className='value'>{language === 'vi' ? nameVi : nameEn}</span>
+                            </div>
+                            <div className='appointment-item'>
+                                <span className='label'>Ngày khám:</span>
+                                <span className='value'>{dateExamine}</span>
+                            </div>
+                            <div className='appointment-item'>
+                                <span className='label'>Giờ khám:</span>
+                                <span className='value'>{time}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div className='price__suggest'>
                         <label
                             className={priceSuggestActive === '1' ? 'price__suggest__item active' : 'price__suggest__item'}
@@ -320,21 +342,7 @@ function BookingSchedule() {
                             />
                         </div>
                     </div>
-                    <div className='form__patient__wrapper'>
-                        <div className='form-control form__patient__wrapper__input'>
-                            <span>
-                                <svg className='form__patient__icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                    <path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z" />
-                                </svg>
-                            </span>
-                            <input
-                                type='date'
-                                className='form__patient__input'
-                                placeholder='Ngày/tháng/năm sinh (bắt buộc)'
-                                onChange={e => setDobPatient(e.target.value)}
-                            />
-                        </div>
-                    </div>
+
                     {/* <div className='form__patient__wrapper'>
                         <div className='form__patient__select__wrapper form-control'>
                             <span>
@@ -442,9 +450,6 @@ function BookingSchedule() {
                     <div className='form__patient__message__wrapper'>
                         {errorMessage &&
                             <span className='form__patient__error__message'>{errorMessage}</span>
-                        }
-                        {successMessage &&
-                            <span className='form__patient__success__message'>{successMessage}</span>
                         }
                     </div>
                     <div className='form__patient__confirm'>

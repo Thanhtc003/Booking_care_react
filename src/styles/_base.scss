@@ -2,6 +2,7 @@
  * General styles
  */
  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
  body, html {
     background-image: "#fff";
@@ -12,6 +13,23 @@
     font-size: $base-size - 2px;
     // height: 100vh;
     // overflow: scroll;
+}
+
+// Loại bỏ gạch chân cho tất cả link
+a {
+    text-decoration: none !important;
+    
+    &:hover {
+        text-decoration: none !important;
+    }
+    
+    &:focus {
+        text-decoration: none !important;
+    }
+    
+    &:visited {
+        text-decoration: none !important;
+    }
 }
 
 .btn {

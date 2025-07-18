@@ -50,8 +50,10 @@ function HeaderHome({ language, changeLanguagesAppRedux, isShadow, isLoggedIn, u
                 <Navigation isOpenNav={isOpenNav} setIsOpenNav={setIsOpenNav} />
                 <div className='wrapper-logo'>
                     <div className='header-logo'>
-                        <Link to='/'>
-                            <img src='https://bookingcare.vn/assets/icon/bookingcare-2020.svg' alt='booking-icon' />
+                        <Link to='/' style={{ textDecoration: 'none' }}>
+                            <div className='skybound-logo'>
+                                <span className='skybound-text'>SkyBound</span>
+                            </div>
                         </Link>
                     </div>
                 </div>

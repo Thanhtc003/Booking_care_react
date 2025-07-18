@@ -3,7 +3,7 @@ import './FooterHome.scss';
 function FooterHome() {
     return (
         <div className='footer-container'>
-            <p className='footer-title'>© 2024 BookingCare.</p>
+            <p className='footer-title'>© 2024 SkyBound.</p>
             <div className='footer-contact-icon'>
                 <a href='https://www.tiktok.com/@xun.hiun17_' target='_blank'>
                     <div className='footer-tiktok-icon'>

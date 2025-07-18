@@ -41,6 +41,7 @@
             "crud-user": "CRUD users",
             "user-redux": "CRUD Redux",
             "doctor-schedule": "Schedule management",
+            "revenue-dashboard": "Revenue Management",
             "clinic": "Clinics",
             "manage-clinic": "Manage clinics",
             "specialty": "Specialties",

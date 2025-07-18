@@ -26,6 +26,8 @@
   100% { background-position: 0% 50%; }
 }
 
+
+
 .header-homepage-container {
   width: 100%;
   height: 80px;
@@ -40,6 +42,15 @@
   z-index: 1000;
   font-family: 'Inter', sans-serif;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+  // Loại bỏ gạch chân cho tất cả link trong header
+  a {
+    text-decoration: none !important;
+    
+    &:hover {
+      text-decoration: none !important;
+    }
+  }
 
   .header-homepage-inner {
     width: 100%;
@@ -84,6 +95,45 @@
         &:hover {
           transform: scale(1.08);
           filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .skybound-logo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          transition: all 0.3s ease;
+          text-decoration: none !important;
+
+          &:hover {
+            transform: scale(1.05);
+            text-decoration: none !important;
+          }
+
+          .skybound-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 25%, #60a5fa 50%, #3b82f6 75%, #1e3a8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-decoration: none !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            
+            &:hover {
+              background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 25%, #1e3a8a 50%, #60a5fa 75%, #3b82f6 100%);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              transform: scale(1.03);
+              text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+              text-decoration: none !important;
+            }
+          }
         }
       }
     }
@@ -397,6 +447,13 @@
       .header-logo {
         width: 140px;
         height: 35px;
+
+        .skybound-logo {
+          .skybound-text {
+            font-size: 22px;
+            letter-spacing: 1.5px;
+          }
+        }
       }
     }
 

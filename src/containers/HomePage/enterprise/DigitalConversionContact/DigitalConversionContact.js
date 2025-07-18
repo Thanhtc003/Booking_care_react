@@ -29,7 +29,7 @@ function DigitalConversionContact() {
                 title = 'Gói toàn diện dành cho cơ sở y tế';
                 break;
             default:
-                title = 'Hợp tác cùng BookingCare';
+                title = 'Hợp tác cùng SkyBound';
         }
     }
     if (p === 'B2') {
@@ -47,7 +47,7 @@ function DigitalConversionContact() {
                 title = 'Gói toàn diện dành cho doanh nghiệp';
                 break;
             default:
-                title = 'Hợp tác cùng BookingCare';
+                title = 'Hợp tác cùng SkyBound';
         }
     }
 

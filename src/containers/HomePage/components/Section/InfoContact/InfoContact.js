@@ -8,8 +8,10 @@ function InfoContact() {
             <div className='info-contact-container'>
                 <div className='row'>
                     <div className='col col-6 copyright'>
-                        <img className='img-booking-care' src='https://bookingcare.vn/assets/icon/bookingcare-2020.svg' alt='Booking Care' />
-                        <h6>Công ty Cổ phần Công nghệ BookingCare</h6>
+                        <div className='skybound-logo-footer'>
+                    <span className='skybound-text-footer'>SkyBound</span>
+                </div>
+                        <h6>Công ty Cổ phần Công nghệ SkyBound</h6>
                         <p>
                             <svg className='info-contact-local-icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                                 <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z" />
@@ -48,7 +50,7 @@ function InfoContact() {
                         </div>
                         <div className='about-headquarter'>
                             <h6>Hỗ trợ khách hàng</h6>
-                            <p>support@bookingcare.vn (7h - 18h)</p>
+                            <p>support@skybound.vn (7h - 18h)</p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +60,7 @@ function InfoContact() {
                 <svg className='info-contact-phone-icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                     <path d="M16 64C16 28.7 44.7 0 80 0H304c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H80c-35.3 0-64-28.7-64-64V64zM224 448c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zM304 64H80V384H304V64z" />
                 </svg>
-                <span>Tải ứng dụng BookingCare cho điện thoại hoặc máy tính bảng:
+                <span>Tải ứng dụng SkyBound cho điện thoại hoặc máy tính bảng:
                     <a href='/app' target='_blank' className='info-contact-download-app--link'>Android - iPhone/iPad - Khác</a>
                 </span>
             </div>

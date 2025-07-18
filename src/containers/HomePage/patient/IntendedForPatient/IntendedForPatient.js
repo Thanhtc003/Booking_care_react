@@ -30,12 +30,14 @@ function IntendedForPatient() {
             <div className="intended__patient__content">
                 <div className='intended__patient__banner'>
                     <div className="banner__booking__care__logo">
-                        <img src="https://bookingcare.vn/assets/anh/bookingcare-logo-v3-w200.png" alt="booking-care-login" />
+                        <div className='skybound-logo-login'>
+                    <span className='skybound-text-login'>SkyBound</span>
+                </div>
                     </div>
                     <div className='row'>
                         <div className='col-md-6'>
                             <div className='banner__desc'>
-                                <h1 className='banner__desc__brand'>BookingCare</h1>
+                                <h1 className='banner__desc__brand'>SkyBound</h1>
                                 <h2 className='banner__desc__title'>Nền tảng đặt khám chuyên khoa</h2>
                                 <p className='banner__desc__detail'>
                                     Giúp bệnh nhân dễ dàng lựa chọn bác sĩ phù hợp và đặt lịch nhanh chóng từ mạng lưới bác sĩ chuyên khoa giỏi, thông tin đã xác thực.
@@ -47,7 +49,7 @@ function IntendedForPatient() {
                         </div>
                     </div>
                     <div className="banner__access">
-                        <Link to='/' className='banner__access__link'>Truy cập website BookingCare
+                        <Link to='/' className='banner__access__link'>Truy cập website SkyBound
                             <svg xmlns="http://www.w3.org/2000/svg" className="banner__access__icon" viewBox="0 0 576 512">
                                 <path d="M352 224H305.5c-45 0-81.5 36.5-81.5 81.5c0 22.3 10.3 34.3 19.2 40.5c6.8 4.7 12.8 12 12.8 20.3c0 9.8-8 17.8-17.8 17.8h-2.5c-2.4 0-4.8-.4-7.1-1.4C210.8 374.8 128 333.4 128 240c0-79.5 64.5-144 144-144h80V34.7C352 15.5 367.5 0 386.7 0c8.6 0 16.8 3.2 23.2 8.9L548.1 133.3c7.6 6.8 11.9 16.5 11.9 26.7s-4.3 19.9-11.9 26.7l-139 125.1c-5.9 5.3-13.5 8.2-21.4 8.2H384c-17.7 0-32-14.3-32-32V224zM80 96c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16H400c8.8 0 16-7.2 16-16V384c0-17.7 14.3-32 32-32s32 14.3 32 32v48c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V112C0 67.8 35.8 32 80 32h48c17.7 0 32 14.3 32 32s-14.3 32-32 32H80z" />
                             </svg>
@@ -92,15 +94,15 @@ function IntendedForPatient() {
                         </ul>
                     </div>
                     <div>
-                        <ListInfo listInfo={listBenefits} title='Tại sao BookingCare lại giải quyết được vấn đề của bạn?' />
+                        <ListInfo listInfo={listBenefits} title='Tại sao SkyBound lại giải quyết được vấn đề của bạn?' />
                     </div>
                 </div>
             </div>
 
             <FooterAboutSupport
                 title='Hỗ trợ đặt lịch'
-                description='Xin vui lòng liên hệ với đội ngũ BookingCare để được hỗ trợ'
-                linkContact='support@bookingcare.vn'
+                description='Xin vui lòng liên hệ với đội ngũ SkyBound để được hỗ trợ'
+                linkContact='support@skybound.vn'
             />
         </div>
     )

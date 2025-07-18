@@ -40,11 +40,11 @@ function DigitalConversionPackage() {
                         <div className='col-md-6'>
                             <div className='banner__desc'>
                                 <h1 className='banner__desc__title'>Giải pháp chuyển đổi số toàn diện cho y tế chăm sóc sức khỏe</h1>
-                                <p className='banner__desc__detail'>Giải pháp chuyển đổi số BookingCare DX ứng dụng công nghệ tiên phong được phát triển theo mô hình Nền tảng như một dịch vụ (Platform as a service - PaaS) bao gồm Website, ứng dụng di động (Mobile App) và phần mềm quản trị, tích hợp 3 trong 1 nền tảng tiện ích dễ dùng.</p>
+                                <p className='banner__desc__detail'>Giải pháp chuyển đổi số SkyBound DX ứng dụng công nghệ tiên phong được phát triển theo mô hình Nền tảng như một dịch vụ (Platform as a service - PaaS) bao gồm Website, ứng dụng di động (Mobile App) và phần mềm quản trị, tích hợp 3 trong 1 nền tảng tiện ích dễ dùng.</p>
                                 <button className='banner__desc__btn'>
                                     <Link to='/cooperate-digital-conversion' className='banner__desc__btn--link'>Đăng kí dùng thử</Link>
                                 </button>
-                                <p className='banner__desc__detail_second'>Liên hệ ngay với BookingCare DX, tiên phong chuyển đổi số để thành công.</p>
+                                <p className='banner__desc__detail_second'>Liên hệ ngay với SkyBound DX, tiên phong chuyển đổi số để thành công.</p>
                                 <Link to='/' className='banner__desc__faq--link'>Xem thêm câu hỏi thường gặp</Link>
                             </div>
                         </div>
@@ -58,7 +58,7 @@ function DigitalConversionPackage() {
                     <ListInfo
                         listInfo={listBenefits}
                         contentBtn='Liên hệ'
-                        title='Lợi ích sử dụng Giải pháp chuyển đổi số BookingCare DX'
+                        title='Lợi ích sử dụng Giải pháp chuyển đổi số SkyBound DX'
                     />
                 </div>
 
@@ -104,8 +104,8 @@ function DigitalConversionPackage() {
                 </div>
             </div>
             <FooterAboutSupport
-                title='Hỗ trợ thông tin BookingCare DX'
-                description='Nếu cần thêm thông tin, vui lòng liên hệ với đội ngũ BookingCare'
+                title='Hỗ trợ thông tin SkyBound DX'
+                description='Nếu cần thêm thông tin, vui lòng liên hệ với đội ngũ SkyBound'
                 phoneContact='0896-210-393'
                 emailContact='maixuanhieu250103@gmail.com'
                 socialContact='facebook.com/hiuxm.2501'

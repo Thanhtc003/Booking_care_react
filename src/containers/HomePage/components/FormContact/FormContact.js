@@ -20,7 +20,7 @@ function FormContact({ title }) {
             <div className='form__contact__content'>
                 <h3 className='form__contact__content__title'>{title}</h3>
                 <hr />
-                <p className='ç'>BookingCare rất hân hạnh được hợp tác với bác sĩ và cơ sở y tế. Vui lòng gửi thông tin, chúng tôi sẽ liên hệ lại trong thời gian sớm nhất.</p>
+                <p className='ç'>SkyBound rất hân hạnh được hợp tác với bác sĩ và cơ sở y tế. Vui lòng gửi thông tin, chúng tôi sẽ liên hệ lại trong thời gian sớm nhất.</p>
                 <div className='form__contact__form'>
                     <div className="mb-3">
                         <label htmlFor="people-contact" className="form-label">Người liên hệ</label>

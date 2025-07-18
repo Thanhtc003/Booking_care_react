@@ -4,7 +4,7 @@ function About() {
     return (
         <div className='about-container'>
             <div className='about-content'>
-                <h3 className='about-title'>Thông tin nói về BookingCare</h3>
+                <h3 className='about-title'>Thông tin nói về SkyBound</h3>
                 <div className='row'>
                     <div className='col col-lg-6 about-video'>
                         <iframe

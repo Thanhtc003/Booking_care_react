@@ -30,6 +30,10 @@ export const adminMenu = [
                 name: 'menu.admin.doctor-schedule',
                 link: '/system/doctor-schedule'
             },
+            {
+                name: 'menu.admin.revenue-dashboard',
+                link: '/system/revenue-dashboard'
+            },
         ]
     },
     { //phòng khám

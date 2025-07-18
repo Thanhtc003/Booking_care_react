@@ -11,7 +11,7 @@ function Cooperate() {
     return (
         <div className='cooperate__wrapper'>
             <HeaderHome />
-            <FormContact title='Hợp tác cùng BookingCare' />
+            <FormContact title='Hợp tác cùng SkyBound' />
             <InfoContact />
             <FooterHome />
         </div>

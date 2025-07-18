@@ -12,6 +12,7 @@ import DoctorDashboard from '../containers/System/DoctorDashboard/DoctorDashboar
 import DoctorSearch from '../containers/System/DoctorSearch/DoctorSearch';
 import DoctorNotes from '../containers/System/DoctorNotes/DoctorNotes';
 import DoctorRegistrationRequests from '../containers/System/DoctorRegistrationRequests';
+import RevenueDashboard from '../containers/System/RevenueDashboard/RevenueDashboard';
 
 
 function System({ systemMenuPath, isLoggedIn }) {
@@ -31,6 +32,7 @@ function System({ systemMenuPath, isLoggedIn }) {
                         <Route path="/system/doctor-search" component={DoctorSearch} />
                         <Route path="/system/doctor-notes" component={DoctorNotes} />
                         <Route path="/system/doctor-registration-requests" component={DoctorRegistrationRequests} />
+                        <Route path="/system/revenue-dashboard" component={RevenueDashboard} />
                         <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                     </Switch>
                 </div>

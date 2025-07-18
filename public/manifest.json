@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SkyBound",
+  "name": "SkyBound - Nền tảng đặt khám chuyên khoa",
   "icons": [
     {
       "src": "favicon.ico",

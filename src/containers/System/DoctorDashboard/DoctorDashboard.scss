@@ -24,7 +24,7 @@
         }
     }
 
-    .loading-container {
+    .loading-container, .error-container {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -45,6 +45,52 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+    }
+
+    .error-container {
+        .error-icon {
+            font-size: 3rem;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .retry-btn {
+            background: linear-gradient(135deg, #0071ba 0%, #43cea2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 16px rgba(0, 113, 186, 0.3);
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(0, 113, 186, 0.4);
+            }
+
+            i {
+                font-size: 1.1rem;
+            }
         }
     }
 
@@ -203,7 +249,7 @@
                 .appointment-item {
                     display: flex;
                     justify-content: space-between;
-                    align-items: center;
+                    align-items: flex-start;
                     padding: 16px;
                     margin-bottom: 12px;
                     background: rgba(255, 255, 255, 0.5);
@@ -224,7 +270,7 @@
                             margin-bottom: 8px;
                         }
 
-                        .appointment-time, .appointment-specialty {
+                        .appointment-time, .appointment-date, .appointment-reason {
                             font-size: 0.9rem;
                             color: #666;
                             margin-bottom: 4px;
@@ -237,6 +283,12 @@
                                 width: 16px;
                             }
                         }
+
+                        .appointment-reason {
+                            i {
+                                color: #43cea2;
+                            }
+                        }
                     }
 
                     .appointment-status {
@@ -247,7 +299,25 @@
                             font-size: 0.8rem;
                             font-weight: 600;
                             text-transform: uppercase;
+                            white-space: nowrap;
                         }
+                    }
+                }
+
+                .no-data {
+                    text-align: center;
+                    padding: 40px 20px;
+                    color: #666;
+
+                    i {
+                        font-size: 3rem;
+                        color: #ccc;
+                        margin-bottom: 16px;
+                    }
+
+                    p {
+                        font-size: 1rem;
+                        color: #888;
                     }
                 }
             }

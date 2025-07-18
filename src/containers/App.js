@@ -14,6 +14,7 @@ import Register from './Auth/Register';
 import System from '../routes/System';
 import HomePage from './HomePage';
 import BookingSchedule from './HomePage/doctor/detailDoctor/BookingSchedule/BookingSchedule';
+import BookingConfirmation from './HomePage/patient/BookingConfirmation/BookingConfirmation';
 import { verifySchedule } from '../services/patientService';
 import SpecialtyDetail from './HomePage/specialty/SpecialtyDetail/SpecialtyDetail';
 import Cooperate from './HomePage/patient/Cooperate/Cooperate';
@@ -51,6 +52,7 @@ function App() {
                             <Route path={path.DOCTOR} exact component={DoctorOutstanding} />
                             <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                             <Route path={path.BOOKING_SCHEDULE} component={BookingSchedule} />
+                            <Route path={path.BOOKING_CONFIRMATION} component={BookingConfirmation} />
                             <Route path={path.VERIFY_SCHEDULE} component={VerifySchedule} />
                             <Route path={path.SPECIALTY} exact component={Specialties} />
                             <Route path={path.DETAIL_SPECIALTY} component={SpecialtyDetail} />

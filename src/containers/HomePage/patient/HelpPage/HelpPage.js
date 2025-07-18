@@ -10,8 +10,8 @@ function HelpPage() {
         <div className='help__wrapper'>
             <HeaderHome isShadow />
             <div className='help__content'>
-                <p>Hãy bấm vào nút mục chat bên dưới đây để nhận được hỗ trợ tự động từ BookingCare Chatbot</p>
-                <Link to='/app'>Bạn có thể tải app BookingCare tại đây</Link>
+                <p>Hãy bấm vào nút mục chat bên dưới đây để nhận được hỗ trợ tự động từ SkyBound Chatbot</p>
+                <Link to='/app'>Bạn có thể tải app SkyBound tại đây</Link>
                 <img src='https://cdn.bookingcare.vn/fo/2024/01/05/151055-qrcode-chatbot.png' className='help__qr__code__img' alt='qr-code' />
                 <img src='https://bookingcare.vn/assets/icon/google-play-badge.svg' className='help__google__play__img' alt='google-play-img' />
                 <img src='https://bookingcare.vn/assets/icon/app-store-badge-black.svg' className='help__app__store__img' alt='app-store-img' />
