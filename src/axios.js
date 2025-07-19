@@ -16,6 +16,12 @@ instance.interceptors.request.use(
         console.log('Data:', config.data);
         console.log('Headers:', config.headers);
         
+        // Add authorization header if token exists
+        // const token = localStorage.getItem('token');
+        // if (token) {
+        //     config.headers.Authorization = `Bearer ${token}`;
+        // }
+        
         return config;
     },
     (error) => {

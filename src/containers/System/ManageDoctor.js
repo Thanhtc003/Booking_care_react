@@ -6,7 +6,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
 import { LANGUAGES } from '../../utils/constant';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import './ManageDoctor.scss';
 import { getInfoMarkDownFromDoctorId } from '../../services/markdownService';
 import { getAllCode } from '../../services/userService';
@@ -41,7 +41,17 @@ function ManageDoctor() {
     const listDoctors = useSelector(state => state.doctor.allDoctors);
     const listSpecialties = useSelector(state => state.specialty.allSpecialties);
 
-    const buildOptionsSelect = (arrDoctors) => {
+    // Debug state values - chỉ log khi thay đổi thực sự
+    useEffect(() => {
+        console.log('🔍 Current state values:', {
+            nameClinic,
+            addressClinic,
+            noteClinic,
+            valueDescDoctor
+        });
+    }, [nameClinic, addressClinic, noteClinic, valueDescDoctor]);
+
+    const buildOptionsSelect = useCallback((arrDoctors) => {
         let result = [];
         if (arrDoctors && arrDoctors.length > 0) {
             arrDoctors.map((item, index) => {
@@ -54,7 +64,7 @@ function ManageDoctor() {
             })
         }
         return result
-    }
+    }, [language]);
 
     const specialties = listSpecialties?.map(specialty => ({
         value: specialty.id, 
@@ -118,12 +128,7 @@ function ManageDoctor() {
     useEffect(() => {
         const dataSelect = buildOptionsSelect(listDoctors)
         setArrDoctors(dataSelect)
-    }, [listDoctors, language, buildOptionsSelect])
-
-    useEffect(() => {
-        const dataSelect = buildOptionsSelect(listDoctors)
-        setArrDoctors(dataSelect)
-    }, [language])
+    }, [listDoctors, buildOptionsSelect])
 
     // Handle reloading doctor data after successful update
     const handleReloadDoctorData = async () => {
@@ -138,7 +143,7 @@ function ManageDoctor() {
             if (resMarkdown?.data) {
                 setContentHTML(resMarkdown.data.contentHTML);
                 setContentMarkdown(resMarkdown.data.contentMarkdown);
-                setValueDescDoctor(resMarkdown.data.description);
+                setValueDescDoctor(resMarkdown.data.description || '');
                 
                 const specialtyData = specialties?.find(specialty => specialty.value === +resMarkdown.data.specialtyId);
                 setSpecialty(specialtyData);
@@ -153,9 +158,9 @@ function ManageDoctor() {
                 setPrice(priceData);
                 setProvince(provinceData);
                 setMethodPayment(paymentData);
-                setNameClinic(nameClinic);
-                setAddressClinic(addressClinic);
-                setNoteClinic(note ? note : '');
+                setNameClinic(nameClinic || '');
+                setAddressClinic(addressClinic || '');
+                setNoteClinic(note || '');
             }
         }
     };
@@ -172,7 +177,7 @@ function ManageDoctor() {
         return () => {
             window.removeEventListener('reloadDoctorData', handleReload);
         };
-    }, [selectDoctor, specialties, prices, provinces, methodPayments]);
+    }, [selectDoctor]); // Bỏ các dependencies không cần thiết
 
 
     const handleChangeDoctor = async (selectDoctor) => {
@@ -187,7 +192,7 @@ function ManageDoctor() {
 
         setContentHTML(resMarkdown?.data?.contentHTML);
         setContentMarkdown(resMarkdown?.data?.contentMarkdown);
-        setValueDescDoctor(resMarkdown?.data?.description);
+        setValueDescDoctor(resMarkdown?.data?.description || '');
         
         const specialtyData = specialties?.find(specialty => specialty.value === +resMarkdown?.data?.specialtyId);
         console.log('🔍 Found specialty data:', specialtyData);
@@ -209,9 +214,9 @@ function ManageDoctor() {
                 setPrice(priceData);
                 setProvince(provinceData);
                 setMethodPayment(paymentData);
-                setNameClinic(nameClinic);
-                setAddressClinic(addressClinic);
-                setNoteClinic(note ? note : '');
+                setNameClinic(nameClinic || '');
+                setAddressClinic(addressClinic || '');
+                setNoteClinic(note || '');
             }
         } else if ((!resMarkdown?.data || resMarkdown?.errorCode !== 0) && (!resDoctorClinic?.data || resDoctorClinic?.errorCode !== 0)) {
             console.log('🆕 No existing data found, switching to CREATE mode');
@@ -245,7 +250,27 @@ function ManageDoctor() {
     }
 
     const handleChangeValueDescDoctor = (e) => {
-        setValueDescDoctor(e.target.value)
+        console.log('🔍 handleChangeValueDescDoctor:', e.target.value);
+        const value = e.target.value || '';
+        setValueDescDoctor(value)
+    }
+
+    const handleChangeNameClinic = (e) => {
+        console.log('🔍 handleChangeNameClinic:', e.target.value);
+        const value = e.target.value || '';
+        setNameClinic(value);
+    }
+
+    const handleChangeAddressClinic = (e) => {
+        console.log('🔍 handleChangeAddressClinic:', e.target.value);
+        const value = e.target.value || '';
+        setAddressClinic(value);
+    }
+
+    const handleChangeNoteClinic = (e) => {
+        console.log('🔍 handleChangeNoteClinic:', e.target.value);
+        const value = e.target.value || '';
+        setNoteClinic(value);
     }
 
     const handleSaveInfoDoctor = () => {
@@ -328,8 +353,9 @@ function ManageDoctor() {
                     <textarea
                         className='manage-doctor-description-textarea'
                         rows='4'
-                        value={valueDescDoctor}
-                        onChange={(e) => handleChangeValueDescDoctor(e)}
+                        value={valueDescDoctor || ''}
+                        onChange={handleChangeValueDescDoctor}
+                        placeholder="Enter doctor description"
                     >
                     </textarea>
                 </div>
@@ -341,8 +367,9 @@ function ManageDoctor() {
                         type="text"
                         className="form-control"
                         id="clinic-name"
-                        value={nameClinic}
-                        onChange={e => setNameClinic(e.target.value)}
+                        value={nameClinic || ''}
+                        onChange={handleChangeNameClinic}
+                        placeholder="Enter clinic name"
                     />
                 </div>
                 <div className='col-4 mb-3'>
@@ -350,8 +377,10 @@ function ManageDoctor() {
                     <input
                         type="text"
                         className="form-control"
-                        id="clinic-address" value={addressClinic}
-                        onChange={e => setAddressClinic(e.target.value)}
+                        id="clinic-address" 
+                        value={addressClinic || ''}
+                        onChange={handleChangeAddressClinic}
+                        placeholder="Enter clinic address"
                     />
                 </div>
                 <div className='col-4 mb-3'>
@@ -388,8 +417,9 @@ function ManageDoctor() {
                     <textarea
                         className='form-control'
                         id="clinic-note"
-                        onChange={e => setNoteClinic(e.target.value)}
-                        value={noteClinic}
+                        onChange={handleChangeNoteClinic}
+                        value={noteClinic || ''}
+                        placeholder="Enter note"
                     >
                     </textarea>
                 </div>

@@ -14,10 +14,19 @@ export default function DoctorAppointment() {
     useEffect(() => {
         let spread = date.split('-');
         const dateFormat = `${spread[0]}-${spread[1]}-${spread[2]}`
+        console.log('🔍 Fetching appointments for date:', { date, dateFormat, userId: user?.id });
+        
         const fetchListAppoint = async () => {
-            const res = await getAppointmentsByDate(user?.id, dateFormat);
-            if (res?.code === 0) {
-                setAppoints(res.data)
+            try {
+                const res = await getAppointmentsByDate(user?.id, dateFormat);
+                console.log('📊 API response:', res);
+                if (res?.code === 0) {
+                    setAppoints(res.data)
+                } else {
+                    console.log('❌ API error:', res);
+                }
+            } catch (error) {
+                console.error('❌ Error fetching appointments:', error);
             }
         }
 
@@ -28,9 +37,23 @@ export default function DoctorAppointment() {
         setDate(e.target.value);
     }
 
-    const handleClickConfirm = (bookingId) => {
-        confirmAppointment({ doctorId: user.id, bookingId }).then().catch();
-        setHideState(Math.random())
+    const handleClickConfirm = async (bookingId) => {
+        try {
+            console.log('🔍 Confirming appointment:', { doctorId: user.id, bookingId });
+            
+            const response = await confirmAppointment({ doctorId: user.id, bookingId });
+            console.log('📊 Confirm response:', response);
+            
+            if (response && response.code === 0) {
+                alert('Xác nhận lịch hẹn thành công!');
+                setHideState(Math.random()); // Refresh the list
+            } else {
+                alert(response?.message || 'Có lỗi xảy ra khi xác nhận lịch hẹn!');
+            }
+        } catch (error) {
+            console.error('❌ Error confirming appointment:', error);
+            alert('Có lỗi xảy ra khi xác nhận lịch hẹn!');
+        }
     }
 
     return (

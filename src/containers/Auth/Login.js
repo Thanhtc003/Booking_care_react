@@ -28,6 +28,11 @@ function Login(props) {
                 setErrorMessage(data.message)
             }
             if (data && data.errorCode === 0) {
+                // Save token to localStorage
+                // if (data.token) {
+                //     localStorage.setItem('token', data.token);
+                // }
+                
                 props.userLoginSuccess(data.user)
                 
                 // Redirect based on user role
