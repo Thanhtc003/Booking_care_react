@@ -30,15 +30,20 @@ function UserManage() {
 
     const createNewUser = async (data) => {
         try {
+            console.log('🔍 Creating user with data:', data);
             const response = await createNewUserService(data)
-            if (response && response.errorCode !== 0) {
-                alert(response.message);
-            } else {
+            console.log('📊 Create response:', response);
+            
+            if (response && response.errorCode === 0) {
                 await fetchData()
                 setShowModal(false)
+                alert('Create successful!')
+            } else {
+                alert(response?.message || 'Create failed!')
             }
         } catch (error) {
-            console.log(error);
+            console.log('❌ Error creating user:', error);
+            alert('Error creating user: ' + error.message)
         }
     }
 
@@ -51,26 +56,38 @@ function UserManage() {
 
     const updateUser = async (data) => {
         try {
+            console.log('🔍 Updating user with data:', data);
             const response = await EditUserService(data);
+            console.log('📊 Update response:', response);
+            
             if (response && response.errorCode === 0) {
                 await fetchData()
                 setShowEditModal(false)
+                alert('Update successful!')
+            } else {
+                alert(response?.message || 'Update failed!')
             }
         } catch (error) {
-            console.log(error);
+            console.log('❌ Error updating user:', error);
+            alert('Error updating user: ' + error.message)
         }
     }
 
     const handleDeleteBtn = async (userId) => {
         try {
+            console.log('🔍 Deleting user with id:', userId);
             const response = await deleteUser(userId);
-            if (response && response.errorCode !== 0) {
-                alert(response.message)
-            } else {
+            console.log('📊 Delete response:', response);
+            
+            if (response && response.errorCode === 0) {
                 await fetchData()
+                alert('Delete successful!')
+            } else {
+                alert(response?.message || 'Delete failed!')
             }
         } catch (error) {
-            console.log(error);
+            console.log('❌ Error deleting user:', error);
+            alert('Error deleting user: ' + error.message)
         }
     }
 

@@ -13,6 +13,7 @@ import { getAllCode } from '../../services/userService';
 import { getInfoDoctorClinic } from '../../services/doctorService';
 import { getAllDoctors, saveDetailDoctor } from '../../store/actions';
 import { fetchAllSpecialties } from '../../store/actions/specialtyActions';
+import { toast } from 'react-toastify';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -39,6 +40,26 @@ function ManageDoctor() {
     const language = useSelector(state => state.app.language);
     const listDoctors = useSelector(state => state.doctor.allDoctors);
     const listSpecialties = useSelector(state => state.specialty.allSpecialties);
+
+    const buildOptionsSelect = (arrDoctors) => {
+        let result = [];
+        if (arrDoctors && arrDoctors.length > 0) {
+            arrDoctors.map((item, index) => {
+                let object = {};
+                const labelVi = `${item.lastName} ${item.firstName}`
+                const labelEn = `${item.firstName} ${item.lastName}`
+                object.label = language === LANGUAGES.VI ? labelVi : labelEn
+                object.value = item.id;
+                return result.push(object)
+            })
+        }
+        return result
+    }
+
+    const specialties = listSpecialties?.map(specialty => ({
+        value: specialty.id, 
+        label: specialty.name
+    }));
 
     useEffect(() => {
         dispatch(getAllDoctors());
@@ -92,35 +113,37 @@ function ManageDoctor() {
             }
         }
         fetchAllCode();
-    }, [language]);
+    }, [language, dispatch]);
 
     useEffect(() => {
         const dataSelect = buildOptionsSelect(listDoctors)
         setArrDoctors(dataSelect)
-    }, [listDoctors])
+    }, [listDoctors, language, buildOptionsSelect])
 
     useEffect(() => {
         const dataSelect = buildOptionsSelect(listDoctors)
         setArrDoctors(dataSelect)
     }, [language])
 
+    // Handle reloading doctor data after successful update
+    const handleReloadDoctorData = async () => {
+        if (selectDoctor && selectDoctor.value) {
+            console.log('🔄 Reloading doctor data for:', selectDoctor.value);
+            const resMarkdown = await getInfoMarkDownFromDoctorId(selectDoctor.value);
+            const resDoctorClinic = await getInfoDoctorClinic(selectDoctor.value);
 
-    const handleChangeDoctor = async (selectDoctor) => {
-        setSelectDoctor(selectDoctor);
-        const resMarkdown = await getInfoMarkDownFromDoctorId(selectDoctor.value);
-        const resDoctorClinic = await getInfoDoctorClinic(selectDoctor.value);
+            console.log('📊 Reloaded markdown data:', resMarkdown?.data);
+            console.log('📊 Reloaded clinic data:', resDoctorClinic?.data);
 
-        console.log(resMarkdown?.data);
-        console.log(resDoctorClinic?.data);
+            if (resMarkdown?.data) {
+                setContentHTML(resMarkdown.data.contentHTML);
+                setContentMarkdown(resMarkdown.data.contentMarkdown);
+                setValueDescDoctor(resMarkdown.data.description);
+                
+                const specialtyData = specialties?.find(specialty => specialty.value === +resMarkdown.data.specialtyId);
+                setSpecialty(specialtyData);
+            }
 
-        setContentHTML(resMarkdown?.data?.contentHTML);
-        setContentMarkdown(resMarkdown?.data?.contentMarkdown);
-        setValueDescDoctor(resMarkdown?.data?.description);
-        const specialtyData = specialties.find(specialty => specialty.value === +resMarkdown?.data?.specialtyId);
-        setSpecialty(specialtyData);
-        setActionSubmit('UPDATE');
-
-        if (resMarkdown?.data && resDoctorClinic?.data) {
             if (resDoctorClinic?.data) {
                 const { priceId, provinceId, paymentId, nameClinic, addressClinic, note } = resDoctorClinic.data;
                 
@@ -134,8 +157,72 @@ function ManageDoctor() {
                 setAddressClinic(addressClinic);
                 setNoteClinic(note ? note : '');
             }
-        } else if (resMarkdown && !resMarkdown.data && resDoctorClinic && !resDoctorClinic.data) {
+        }
+    };
+
+    useEffect(() => {
+        // Listen for reload action from Redux
+        const handleReload = () => {
+            handleReloadDoctorData();
+        };
+
+        // Add event listener for custom reload event
+        window.addEventListener('reloadDoctorData', handleReload);
+        
+        return () => {
+            window.removeEventListener('reloadDoctorData', handleReload);
+        };
+    }, [selectDoctor, specialties, prices, provinces, methodPayments]);
+
+
+    const handleChangeDoctor = async (selectDoctor) => {
+        console.log('🔍 Selecting doctor:', selectDoctor);
+        setSelectDoctor(selectDoctor);
+        
+        const resMarkdown = await getInfoMarkDownFromDoctorId(selectDoctor.value);
+        const resDoctorClinic = await getInfoDoctorClinic(selectDoctor.value);
+
+        console.log('📊 Markdown response:', resMarkdown);
+        console.log('📊 Clinic response:', resDoctorClinic);
+
+        setContentHTML(resMarkdown?.data?.contentHTML);
+        setContentMarkdown(resMarkdown?.data?.contentMarkdown);
+        setValueDescDoctor(resMarkdown?.data?.description);
+        
+        const specialtyData = specialties?.find(specialty => specialty.value === +resMarkdown?.data?.specialtyId);
+        console.log('🔍 Found specialty data:', specialtyData);
+        setSpecialty(specialtyData);
+        setActionSubmit('UPDATE');
+
+        if (resMarkdown?.data && resDoctorClinic?.data) {
+            console.log('✅ Both markdown and clinic data exist');
+            if (resDoctorClinic?.data) {
+                const { priceId, provinceId, paymentId, nameClinic, addressClinic, note } = resDoctorClinic.data;
+                console.log('📊 Clinic data:', { priceId, provinceId, paymentId, nameClinic, addressClinic, note });
+                
+                const priceData = prices.find(price => price.value === +priceId);
+                const provinceData = provinces.find(province => province.value === +provinceId);
+                const paymentData = methodPayments.find(payment => payment.value === +paymentId);
+                
+                console.log('🔍 Found data:', { priceData, provinceData, paymentData });
+                
+                setPrice(priceData);
+                setProvince(provinceData);
+                setMethodPayment(paymentData);
+                setNameClinic(nameClinic);
+                setAddressClinic(addressClinic);
+                setNoteClinic(note ? note : '');
+            }
+        } else if ((!resMarkdown?.data || resMarkdown?.errorCode !== 0) && (!resDoctorClinic?.data || resDoctorClinic?.errorCode !== 0)) {
+            console.log('🆕 No existing data found, switching to CREATE mode');
             setActionSubmit('CREATE');
+        } else {
+            console.log('⚠️ Partial data found:', { 
+                hasMarkdown: !!resMarkdown?.data, 
+                hasClinic: !!resDoctorClinic?.data,
+                markdownErrorCode: resMarkdown?.errorCode,
+                clinicErrorCode: resDoctorClinic?.errorCode
+            });
         }
     }
 
@@ -162,6 +249,52 @@ function ManageDoctor() {
     }
 
     const handleSaveInfoDoctor = () => {
+        // Validate required fields
+        if (!selectDoctor || !selectDoctor.value) {
+            toast.error('Please select a doctor');
+            return;
+        }
+        
+        if (!contentMarkdown || !contentHTML) {
+            toast.error('Please enter doctor information in the editor');
+            return;
+        }
+        
+        if (!province || !province.value) {
+            toast.error('Please select a province');
+            return;
+        }
+        
+        if (!price || !price.value) {
+            toast.error('Please select a price');
+            return;
+        }
+        
+        if (!methodPayment || !methodPayment.value) {
+            toast.error('Please select a payment method');
+            return;
+        }
+        
+        if (!specialty || !specialty.value) {
+            toast.error('Please select a specialty');
+            return;
+        }
+        
+        console.log('🔍 Saving doctor data:', {
+            doctorId: selectDoctor.value,
+            actionSubmit,
+            contentMarkdown: contentMarkdown ? 'Has content' : 'Empty',
+            contentHTML: contentHTML ? 'Has content' : 'Empty',
+            description: valueDescDoctor,
+            provinceId: province.value,
+            priceId: price.value,
+            paymentId: methodPayment.value,
+            addressClinic,
+            nameClinic,
+            noteClinic,
+            specialtyId: specialty.value
+        });
+        
         dispatch(saveDetailDoctor({
             contentMarkdown,
             contentHTML,
@@ -177,25 +310,6 @@ function ManageDoctor() {
             actionSubmit
         }));
     }
-
-    const buildOptionsSelect = (arrDoctors) => {
-        let result = [];
-        if (arrDoctors && arrDoctors.length > 0) {
-            arrDoctors.map((item, index) => {
-                let object = {};
-                const labelVi = `${item.lastName} ${item.firstName}`
-                const labelEn = `${item.firstName} ${item.lastName}`
-                object.label = language === LANGUAGES.VI ? labelVi : labelEn
-                object.value = item.id;
-                return result.push(object)
-            })
-        }
-        return result
-    }
-
-    const specialties = listSpecialties?.map(specialty => ({
-        value: specialty.id, label: specialty.name
-    }));
 
     return (
         <div className='container manage-doctor-wrapper'>

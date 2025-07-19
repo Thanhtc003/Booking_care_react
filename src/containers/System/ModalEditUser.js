@@ -11,7 +11,21 @@ function ModalEditUser({ showModal, toggleShowModal, currentUser, updateUser }) 
     useEffect(() => {
         const user = currentUser;
         if (user && !_.isEmpty(user)) {
-            setState(user)
+            console.log('🔍 ModalEditUser - Initializing with user data:', user);
+            // Ensure all required fields have default values
+            const userWithDefaults = {
+                id: user.id,
+                email: user.email || '',
+                firstName: user.firstName || '',
+                lastName: user.lastName || '',
+                address: user.address || '',
+                phoneNumber: user.phoneNumber || '',
+                gender: user.gender || '1',
+                roleId: user.roleId || 'R3',
+                positionId: user.positionId || 'P0',
+                image: user.image || ''
+            };
+            setState(userWithDefaults);
         }
     }, [currentUser])
 
@@ -39,6 +53,7 @@ function ModalEditUser({ showModal, toggleShowModal, currentUser, updateUser }) 
     const handleClickUpdateBtn = () => {
         const isValidate = checkValidateInput();
         if (isValidate) {
+            console.log('🔍 ModalEditUser - Sending data:', state);
             updateUser(state)
         }
     }
@@ -86,9 +101,9 @@ function ModalEditUser({ showModal, toggleShowModal, currentUser, updateUser }) 
                         <div className="col-md-3">
                             <label htmlFor="roleId" className="form-label">Role</label>
                             <select id="roleId" name="roleId" value={state.roleId} className="form-select" onChange={e => handleChangeInput(e, 'roleId')}>
-                                <option value="1">Admin</option>
-                                <option value="2">Doctor</option>
-                                <option value="3">Patient</option>
+                                <option value="R1">Admin</option>
+                                <option value="R2">Doctor</option>
+                                <option value="R3">Patient</option>
                             </select>
                         </div>
                     </form>

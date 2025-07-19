@@ -15,6 +15,7 @@ instance.interceptors.request.use(
         console.log('Method:', config.method);
         console.log('Data:', config.data);
         console.log('Headers:', config.headers);
+        
         return config;
     },
     (error) => {

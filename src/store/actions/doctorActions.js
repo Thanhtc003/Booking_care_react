@@ -59,6 +59,13 @@ export const saveDetailDoctor = (data) => {
                 dispatch({
                     type: actionTypes.SAVE_DETAIL_DOCTOR_SUCCESS
                 })
+                
+                // Reload doctor data after successful update
+                if (action === 'UPDATE' && data.doctorId) {
+                    console.log('🔄 Reloading doctor data after update...');
+                    // Trigger custom event to reload doctor data
+                    window.dispatchEvent(new CustomEvent('reloadDoctorData'));
+                }
             } else {
                 toast.error('Save information doctor failed')
                 dispatch({
