@@ -144,16 +144,16 @@ function Appointment() {
                                             <div className='booking__header'>
                                                 <div className='doctor__info'>
                                                     <img 
-                                                        src={booking.User?.image || '/default-doctor.jpg'} 
+                                                        src={booking.doctorData?.image || '/default-doctor.jpg'} 
                                                         alt="Doctor" 
                                                         className='doctor__image'
                                                     />
                                                     <div className='doctor__details'>
-                                                        <h6>Bác sĩ: {booking.User?.lastName} {booking.User?.firstName}</h6>
+                                                        <h6>Bác sĩ: {booking.doctorData?.lastName} {booking.doctorData?.firstName}</h6>
                                                         <p>Ngày khám: {formatDate(booking.date)}</p>
                                                         <p>Giờ khám: {booking.timeTypeData?.valueVi}</p>
-                                                        {booking.User?.phoneNumber && (
-                                                            <p>Liên hệ BS: {booking.User.phoneNumber}</p>
+                                                        {booking.doctorData?.phoneNumber && (
+                                                            <p>Liên hệ BS: {booking.doctorData.phoneNumber}</p>
                                                         )}
                                                     </div>
                                                 </div>

@@ -8,6 +8,8 @@ export default function DoctorAppointment() {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [appoints, setAppoints] = useState([]);
     const [hideState, setHideState] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [confirmingId, setConfirmingId] = useState(null);
 
     const user = useSelector(state => state.user.userInfo);
 
@@ -15,9 +17,16 @@ export default function DoctorAppointment() {
         let spread = date.split('-');
         const dateFormat = `${spread[0]}-${spread[1]}-${spread[2]}`
         const fetchListAppoint = async () => {
-            const res = await getAppointmentsByDate(user?.id, dateFormat);
-            if (res?.code === 0) {
-                setAppoints(res.data)
+            setLoading(true);
+            try {
+                const res = await getAppointmentsByDate(user?.id, dateFormat);
+                if (res?.code === 0) {
+                    setAppoints(res.data)
+                }
+            } catch (error) {
+                console.error('Error fetching appointments:', error);
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -28,9 +37,55 @@ export default function DoctorAppointment() {
         setDate(e.target.value);
     }
 
-    const handleClickConfirm = (bookingId) => {
-        confirmAppointment({ doctorId: user.id, bookingId }).then().catch();
-        setHideState(Math.random())
+    const handleClickConfirm = async (bookingId) => {
+        setConfirmingId(bookingId);
+        try {
+            const response = await confirmAppointment({ doctorId: user.id, bookingId });
+            
+            console.log('Confirm response:', response); // Debug log
+            
+            if (response) {
+                if (response.code === 0) {
+                    alert('✅ Xác nhận lịch hẹn thành công!');
+                    setHideState(Math.random());
+                } else {
+                    // Hiển thị thông báo lỗi cụ thể
+                    let errorMessage = 'Có lỗi xảy ra!';
+                    
+                    switch (response.code) {
+                        case -3:
+                            errorMessage = '❌ Thiếu thông tin cần thiết!';
+                            break;
+                        case -4:
+                            errorMessage = '❌ Lịch hẹn không tồn tại!';
+                            break;
+                        case -5:
+                            errorMessage = '⚠️ Lịch hẹn đã được xác nhận trước đó!';
+                            break;
+                        case -6:
+                            errorMessage = '⏳ Lịch hẹn đang chờ bệnh nhân xác nhận!';
+                            break;
+                        case -7:
+                            errorMessage = '❌ Lịch hẹn đã bị hủy!';
+                            break;
+                        case -8:
+                            errorMessage = '❌ Trạng thái lịch hẹn không hợp lệ!';
+                            break;
+                        default:
+                            errorMessage = response.message || '❌ Có lỗi xảy ra!';
+                    }
+                    
+                    alert(errorMessage);
+                }
+            } else {
+                alert('❌ Có lỗi xảy ra khi kết nối với máy chủ!');
+            }
+        } catch (error) {
+            console.error('Error confirming appointment:', error);
+            alert('❌ Có lỗi xảy ra khi xác nhận lịch hẹn!');
+        } finally {
+            setConfirmingId(null);
+        }
     }
 
     return (
@@ -53,7 +108,12 @@ export default function DoctorAppointment() {
             </div>
 
             <div className="appointments-container">
-                {appoints.length > 0 ? (
+                {loading ? (
+                    <div className="loading-state">
+                        <div className="loading-spinner"></div>
+                        <p>Đang tải danh sách lịch hẹn...</p>
+                    </div>
+                ) : appoints.length > 0 ? (
                     <table className="table table-hover">
                         <thead>
                             <tr>
@@ -95,8 +155,18 @@ export default function DoctorAppointment() {
                                                 ? <button 
                                                     className='btn btn-success' 
                                                     onClick={() => handleClickConfirm(appoint.id)}
+                                                    disabled={confirmingId === appoint.id}
                                                 >
-                                                    ✅ Xác nhận
+                                                    {confirmingId === appoint.id ? (
+                                                        <>
+                                                            <span className="loading-dots"></span>
+                                                            Đang xác nhận...
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            ✅ Xác nhận
+                                                        </>
+                                                    )}
                                                 </button>
                                                 : <button 
                                                     className='btn btn-success' 
